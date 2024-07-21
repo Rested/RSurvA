@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  redis:
+    image: "redis:latest"
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  be:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - FE_URL=http://localhost:8005
+    ports:
+      - "8002:8000"
+    depends_on:
+      - redis
+
+  fe:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+    ports:
+      - "8005:80"
+    depends_on:
+      - be
