@@ -57,6 +57,17 @@ class Survey(BaseModel):
         return (self.created_at + timedelta(seconds=self.duration * 60)) < datetime.now(
             UTC
         )
+    
+    @computed_field
+    @property
+    def expires_at(self) -> str:
+        return (self.created_at + timedelta(seconds=self.duration * 60)).isoformat()
+
+
+    @computed_field
+    @property
+    def results_available_till(self) -> str:
+        return (self.created_at + timedelta(seconds=(self.duration + SURVEY_TTL) * 60)).isoformat()
 
 
 class SurveyAnswers(Survey):
@@ -79,7 +90,7 @@ def create_survey(survey: Survey):
     key = f"survey:{survey.survey_id}"
     r.set(key, survey_data)
     _logger.debug(f"saved survey at '%s'", key)
-    r.expire(key, SURVEY_TTL * 60)  # setting expiry
+    r.expire(key, (survey.duration + SURVEY_TTL) * 60)  # setting expiry
     return Response(status_code=201)
 
 @app.get("/survey/{survey_id}")

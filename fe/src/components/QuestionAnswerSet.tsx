@@ -1,3 +1,4 @@
+import EncryptedSet from "./answer_sets/Encrypted";
 import PlainTextSet from "./answer_sets/PlainTextSet";
 
 const QuestionAnswerSet = ({ question_type, answers, index, text }) => {
@@ -6,6 +7,13 @@ const QuestionAnswerSet = ({ question_type, answers, index, text }) => {
         case 'plaintext':
             questionComponent = (
                 <PlainTextSet
+                    answers={answers}
+                />
+            );
+            break;
+        case 'encrypted':
+            questionComponent = (
+                <EncryptedSet
                     answers={answers}
                 />
             );

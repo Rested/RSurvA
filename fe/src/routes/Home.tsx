@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import QuestionEntry from '../components/QuestionEntry';
 import ShareLinks from '../components/ShareLinks';
+import { durations } from '../constants';
 
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -33,14 +34,6 @@ async function computeSHA256HexOfBase64(base64String) {
 }
 
 
-const durations: { [key: number]: string } = {
-    1: '1 Minute',
-    20: '20 Minutes',
-    60: '1 Hour',
-    1440: '1 Day', // 60*24
-    10080: '1 Week', // 60*24*7
-    20160: '2 Weeks', // 60*24*7*2
-};
 
 
 const Questions = () => {
