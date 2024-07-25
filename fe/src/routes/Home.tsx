@@ -75,7 +75,7 @@ const Questions = () => {
         const surveyId = await computeSHA256HexOfBase64(publicKeyB64);
 
         fetch(`${apiUrl}/survey`, {
-            body: JSON.stringify({ name, questions, survey_id: surveyId, public_key: publicKeyB64, duration: surveyDuration, min_responses: surveyMinResponses }),
+            body: JSON.stringify({ name: surveyName, questions, survey_id: surveyId, public_key: publicKeyB64, duration: surveyDuration, min_responses: surveyMinResponses }),
             method: "POST",
             headers: { "Content-Type": "application/json" },
         })
@@ -89,37 +89,62 @@ const Questions = () => {
                 }
             })
     }
-    return shareLinks ? <ShareLinks {...shareLinks} duration={durations[surveyDuration]} minResponses={surveyMinResponses} /> : (<div>
-        <h1>Create an anonymous survey with public key encryption!</h1>
-            <label htmlFor="survey-name">Survey Name</label>
+    return shareLinks ? <ShareLinks {...shareLinks} duration={durations[surveyDuration]} minResponses={surveyMinResponses} /> : (<div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
+        <h1 class="text-3xl font-bold text-center mb-6 text-gray-900">Create an anonymous survey with public key encryption!</h1>
+        <div class="mb-4">
+            <label htmlFor="survey-name" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Survey Name</label>
             <input
                 id="survey-name"
+                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 placeholder="My Survey"
                 onChange={handleSurveyNameChange}
                 value={surveyName}
             />
+        </div>
         {questions.map((question, index) => (
-            <QuestionEntry key={index} question={question} index={index} onQuestionChange={handleQuestionChange} />
+            <QuestionEntry index={index} onQuestionChange={handleQuestionChange} question={question} />
         ))}
-        <button onClick={handleQuestionAdd}>Add Question</button>
-        <hr />
-        <label htmlFor="survey-duration">Survey Duration <small>(You won't be able to see the results till this is up - participants will be able to see this)</small></label>
-        <select
-            id="survey-duration"
-            value={surveyDuration}
-            onChange={(e) => setSurveyDuration(parseInt(e.target.value))}
+        <button
+            onClick={handleQuestionAdd}
+            class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
-            {Object.entries(durations).map(([value, label]) => (
-                <option key={value} value={parseInt(value)}>
-                    {label}
-                </option>
-            ))}
-        </select>
-        <label htmlFor="survey-min-responses">Survey Responses <small>(You won't be able to see the results till this many answers are collected - participants can see this)</small></label>
-        <input id="survey-min-responses" type="number" value={surveyMinResponses} onChange={(e) => setSurveyMinResponses(parseInt(e.target.value))} />
-        <button onClick={handleShareSurvey}>Share Survey</button>
+            Add Question
+        </button>
+        <hr class="my-6" />
+        <div class="mb-4">
+            <label htmlFor="survey-duration" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Survey Duration <small class="font-bold">(You won't be able to see the results till this is up - participants will be able to see this)</small></label>
+            <select
+                id="survey-duration"
+                value={surveyDuration}
+                onChange={(e) => setSurveyDuration(parseInt(e.target.value))}
+                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            >
+                {Object.entries(durations).map(([value, label]) => (
+                    <option key={value} value={parseInt(value)}>
+                        {label}
+                    </option>
+                ))}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label htmlFor="survey-min-responses" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Survey Responses <small>(You won't be able to see the results till this many answers are collected - participants can see this)</small></label>
+            <input
+                id="survey-min-responses"
+                type="number"
+                value={surveyMinResponses}
+                onChange={(e) => setSurveyMinResponses(parseInt(e.target.value))}
+                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            />
+        </div>
+        <button
+            onClick={handleShareSurvey}
+            class="w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+        >
+            Share Survey
+        </button>
+    </div>
+    );
 
-    </div>)
 
 };
 

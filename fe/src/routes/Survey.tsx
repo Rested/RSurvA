@@ -68,13 +68,38 @@ const Survey = ({ surveyId }) => {
     const hasAnswersOrNeedsQuestions = surveyQuestions && (!surveyQuestions.is_expired || surveyQuestions.is_expired && surveyQuestions.encrypted_answers_sets);
 
 
-    return (submitted ? <h1>Thank you for your response!</h1> : (
-        <div>
-            <h1>Survey{decryptedAnswers ? ' Responses' : ''}</h1>
-            {surveyQuestions?.is_expired && decryptedAnswers === null ? <SurveyExpired surveyQuestions={surveyQuestions} handleUnlockSurvey={handleUnlockSurvey} setPrivateKey={setPrivateKey} privateKey={privateKey} /> : null}
-            {hasAnswersOrNeedsQuestions ? <SurveyQuestions surveyQuestions={surveyQuestions} surveyDecryptedAnswers={decryptedAnswers} surveyQuestionAnswers={surveyQuestionAnswers} handleAnswerChange={handleAnswerChange} submitAnswers={submitAnswers} /> : null}
+    return (
+        submitted ? 
+        <div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
+            <h1 class="text-lg font-medium text-gray-900 mb-4">Thank you for your response!</h1>
+        </div> 
+        : 
+        <div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
+            <h1 class="text-lg font-medium text-gray-900 mb-4">
+                Survey{decryptedAnswers ? ' Responses' : ''}
+            </h1>
+            {surveyQuestions?.is_expired && decryptedAnswers === null ? 
+                <SurveyExpired
+                    surveyQuestions={surveyQuestions}
+                    handleUnlockSurvey={handleUnlockSurvey}
+                    setPrivateKey={setPrivateKey}
+                    privateKey={privateKey}
+                /> 
+                : null
+            }
+            {hasAnswersOrNeedsQuestions ? 
+                <SurveyQuestions
+                    surveyQuestions={surveyQuestions}
+                    surveyDecryptedAnswers={decryptedAnswers}
+                    surveyQuestionAnswers={surveyQuestionAnswers}
+                    handleAnswerChange={handleAnswerChange}
+                    submitAnswers={submitAnswers}
+                /> : null
+            }
         </div>
-    ));
+    );
+
+
 };
 
 export default Survey;

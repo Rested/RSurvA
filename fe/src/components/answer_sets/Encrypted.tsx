@@ -1,7 +1,15 @@
+import { LockClosedIcon } from '@heroicons/react/24/solid';
+
+
 const EncryptedSet = ({ answers }) => {
     return (
-        <div>
-            {answers.map(a => <p>encrypted</p>)}
+        <div class="space-y-2">
+            {answers.map((a, i) => (
+                <div key={i} class="flex items-center text-gray-700">
+                    <LockClosedIcon class="w-5 h-5 mr-2 text-gray-700" />
+                    Encrypted Answer {i+1}
+                </div>
+            ))}
         </div>
     );
 };

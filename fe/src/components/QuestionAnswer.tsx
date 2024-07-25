@@ -14,12 +14,13 @@ const QuestionAnswer = (props) => {
         default:
             questionComponent = null;
     }
-    return (<div>
-        <label>
-            {props.index + 1}. {props.text}
-        </label>
-        {questionComponent}
-    </div>)
+    return (
+        <div class="mb-6">
+            <label class="block text-gray-900 font-semibold mb-2">
+                {props.index + 1}. {props.text}
+            </label>
+            {questionComponent}
+        </div>
+    );
 };
-
 export default QuestionAnswer;

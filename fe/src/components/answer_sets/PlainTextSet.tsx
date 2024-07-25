@@ -1,10 +1,9 @@
-import { h } from 'preact';
-
-
 const PlainTextSet = ({ answers }) => {
     return (
-        <div>
-            {answers.map(a => <p>{a}</p>)}
+        <div class="space-y-2">
+            {answers.map((a, i) => (
+                <p key={i} class="text-gray-700">{a}</p>
+            ))}
         </div>
     );
 };

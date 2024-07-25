@@ -22,12 +22,14 @@ const QuestionAnswerSet = ({ question_type, answers, index, text }) => {
         default:
             questionComponent = null;
     }
-    return (<div>
-        <label>
-            {index + 1}. {text}
-        </label>
-        {questionComponent}
-    </div>)
+    return (
+        <div class="mb-6">
+            <label class="block text-gray-900 font-semibold mb-2">
+                {index + 1}. {text}
+            </label>
+            {questionComponent}
+        </div>
+    );
 };
 
 export default QuestionAnswerSet;
