@@ -44,18 +44,29 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                 </p>
             ) : (
                 <Fragment>
-                    <p class="text-gray-700 mt-4">
-                        Answers are stored encrypted and can only be decrypted by the survey owner after <strong class="font-semibold">{durations[surveyQuestions.duration]}</strong> (<strong class="font-semibold">{convertUTCToLocal(surveyQuestions.expires_at)}</strong>) and the survey has received at least <strong class="font-semibold">{surveyQuestions.min_responses}</strong> responses.
-                    </p>
-                    <p class="text-gray-700 mt-2">
-                        The public key your answers are encrypted with is <code class="bg-gray-100 p-1 rounded">{surveyQuestions.public_key}</code>. You can check this with the survey asker if you want to verify.
-                    </p>
                     <button
                         onClick={submitAnswers}
                         class="w-full mt-4 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     >
                         Submit Answers
                     </button>
+                    <div class="mt-4 p-4 border-l-4 border-blue-500 bg-blue-50 text-blue-700 rounded">
+                        <p>
+                            Answers are stored encrypted and can only be decrypted by the survey owner after <strong class="font-semibold">{durations[surveyQuestions.duration]}</strong> (<strong class="font-semibold">{convertUTCToLocal(surveyQuestions.expires_at)}</strong>) and the survey has received at least <strong class="font-semibold">{surveyQuestions.min_responses}</strong> responses.
+                        </p>
+                        <p class="mt-2">
+                            The public key your answers are encrypted with is:
+                        </p>
+                        <input
+                            type="text"
+                            value={surveyQuestions.public_key}
+                            readOnly
+                            class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-100 text-gray-900"
+                        />
+                        <p class="mt-2">
+                            You can confirm this with the survey owner if you want.
+                        </p>
+                    </div>
                 </Fragment>
             )}
         </div>

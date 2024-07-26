@@ -6,6 +6,7 @@ import { durations } from "../constants";
 import { decryptStringWithPrivateKey, encryptStringWithPublicKey } from "../crypto";
 import SurveyQuestions from "../components/SurveyQuestions";
 import SurveyExpired from "../components/SurveyExpired";
+import TitleBar from "../components/TitleBar";
 
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -57,7 +58,6 @@ const Survey = ({ surveyId }) => {
                 return JSON.parse(decryptedAnswersJSON);
             });
             const decryptedAnswers = await Promise.all(decryptedAnswersPromises);
-            console.log(decryptedAnswers);
             setDecryptedAnswers(decryptedAnswers);
         } catch (error) {
             console.error("Error decrypting answers:", error);
@@ -75,9 +75,7 @@ const Survey = ({ surveyId }) => {
         </div> 
         : 
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
-            <h1 class="text-lg font-medium text-gray-900 mb-4">
-                Survey{decryptedAnswers ? ' Responses' : ''}
-            </h1>
+            <TitleBar text={surveyQuestions?.is_expired ? 'Survey Responses' : 'Respond to Survey'}/>
             {surveyQuestions?.is_expired && decryptedAnswers === null ? 
                 <SurveyExpired
                     surveyQuestions={surveyQuestions}

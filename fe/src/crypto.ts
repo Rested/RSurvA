@@ -95,3 +95,44 @@ export async function decryptStringWithPrivateKey(privateKeyB64, stringToDecrypt
     const decryptedData = await decryptData(privateKey, base64ToArrayBuffer(stringToDecrypt));
     return decryptedData;
 }
+
+
+async function computeSHA256HexOfBase64(base64String) {
+    const binaryString = atob(base64String);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    const hashBuffer = await crypto.subtle.digest("SHA-256", bytes);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    return hashHex;
+}
+
+
+export async function generateRSA(){
+    const rsaKeyPair = await window.crypto.subtle.generateKey(
+        {
+            name: "RSA-OAEP",
+            modulusLength: 2048,
+            publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+            hash: "SHA-256",
+        },
+        true,
+        ["encrypt", "decrypt"]
+    );
+    const publicKey = await window.crypto.subtle.exportKey("spki", rsaKeyPair.publicKey);
+    const privateKey = await window.crypto.subtle.exportKey("pkcs8", rsaKeyPair.privateKey);
+    const publicKeyB64 = btoa(String.fromCharCode(...new Uint8Array(publicKey)));
+    const privateKeyB64 = btoa(String.fromCharCode(...new Uint8Array(privateKey)));
+    const surveyId = await computeSHA256HexOfBase64(publicKeyB64);
+    return {
+        surveyId,
+        publicKeyB64,
+        privateKeyB64
+    }
+
+}

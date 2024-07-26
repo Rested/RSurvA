@@ -1,16 +1,33 @@
+import { QuestionType } from "../constants";
 import EncryptedSet from "./answer_sets/Encrypted";
 import PlainTextSet from "./answer_sets/PlainTextSet";
+import RatingSet from "./answer_sets/RatingSet";
 
 const QuestionAnswerSet = ({ question_type, answers, index, text }) => {
     let questionComponent = null;
     switch (question_type) {
-        case 'plaintext':
+        case QuestionType.ShortText:
             questionComponent = (
                 <PlainTextSet
                     answers={answers}
                 />
             );
             break;
+        case QuestionType.LongText:
+            questionComponent = (
+                <PlainTextSet
+                    answers={answers}
+                />
+            );
+            break;
+        case QuestionType.Rating:
+            questionComponent = (
+                <RatingSet
+                    answers={answers}
+                />
+            );
+            break;
+
         case 'encrypted':
             questionComponent = (
                 <EncryptedSet
@@ -27,7 +44,9 @@ const QuestionAnswerSet = ({ question_type, answers, index, text }) => {
             <label class="block text-gray-900 font-semibold mb-2">
                 {index + 1}. {text}
             </label>
-            {questionComponent}
+            <div class="px-4">
+                {questionComponent}
+            </div>
         </div>
     );
 };

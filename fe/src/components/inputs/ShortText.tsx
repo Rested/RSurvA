@@ -1,7 +1,6 @@
-import { h } from 'preact';
 
 
-const PlainText = ({ index, onChange, value }) => {
+const ShortText = ({ index, onChange, value }) => {
     return (
         <input
             type="text"
@@ -12,4 +11,4 @@ const PlainText = ({ index, onChange, value }) => {
     );
 };
 
-export default PlainText;
+export default ShortText;

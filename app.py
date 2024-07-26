@@ -31,13 +31,10 @@ app.add_middleware(
 SURVEY_TTL = 60 * 24 * 30  # save surveys for 30 days
 
 
-class QuestionTypes(StrEnum):
-    PLAINTEXT = "plaintext"
-
 
 class Question(BaseModel):
     text: str
-    question_type: QuestionTypes
+    question_type: str
 
 
 class Survey(BaseModel):

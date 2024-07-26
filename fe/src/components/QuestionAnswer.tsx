@@ -1,14 +1,25 @@
-import PlainText from './inputs/PlainText';
+import { QuestionType } from '../constants';
+import ShortText from './inputs/ShortText';
+import Rating from './inputs/Rating';
+import LongText from './inputs/LongText';
 
 const QuestionAnswer = (props) => {
     let questionComponent = null;
     switch (props.question_type) {
-        case 'plaintext':
-            questionComponent =  (
-                <PlainText 
+        case QuestionType.ShortText:
+            questionComponent = (
+                <ShortText
                     {...props}
                 />
             );
+            break;
+        case QuestionType.LongText:
+            questionComponent = (
+                <LongText {...props}/>
+            )
+            break;
+        case QuestionType.Rating:
+            questionComponent = <Rating {...props} />;
             break;
         // Add other case statements for different question types, if needed.
         default:

@@ -1,3 +1,4 @@
+import { DocumentIcon, PencilIcon, StarIcon } from '@heroicons/react/24/solid';
 
 
 export const durations: { [key: number]: string } = {
@@ -8,3 +9,18 @@ export const durations: { [key: number]: string } = {
     10080: '1 Week', // 60*24*7
     20160: '2 Weeks', // 60*24*7*2
 };
+
+
+export enum QuestionType {
+    ShortText = 'Short Text',
+    LongText = 'Long Text',
+    Rating = 'Rating',
+}
+
+export const iconMapping = {
+    [QuestionType.ShortText]: PencilIcon,
+    [QuestionType.Rating]: StarIcon,
+    [QuestionType.LongText]: DocumentIcon,
+    // Add more question types and icons if needed
+};
+
