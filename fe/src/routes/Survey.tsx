@@ -45,7 +45,15 @@ const Survey = ({ surveyId }) => {
     };
 
     const submitAnswers = async () => {
-        const encryptedAnswers = await encryptStringWithPublicKey(surveyQuestions.public_key, JSON.stringify(surveyQuestionAnswers));
+        const encryptedAnswersPromises = surveyQuestionAnswers.map(async (answer) => {
+            // Assuming surveyQuestionAnswers is an array of answers
+            return encryptStringWithPublicKey(surveyQuestions.public_key, answer);
+        });
+    
+        // Wait for all the encryption promises to resolve
+        const encryptedAnswers = await Promise.all(encryptedAnswersPromises);
+    
+        // Send the encrypted answers with the API request
         fetch(`${apiUrl}/survey/${surveyId}/answer`, {
             body: JSON.stringify({ encrypted_answers: encryptedAnswers }),
             method: "POST",
@@ -54,20 +62,33 @@ const Survey = ({ surveyId }) => {
             if (r.status === 201) {
                 setSubmitted(true);
             }
-        })
+        });
+    
     }
+    
     const handleUnlockSurvey = async () => {
         try {
-            const decryptedAnswersPromises = surveyQuestions.encrypted_answers_sets.map(async (encryptedAnswers) => {
-                const decryptedAnswersJSON = await decryptStringWithPrivateKey(privateKey, encryptedAnswers);
-                return JSON.parse(decryptedAnswersJSON);
+            const decryptedAnswersPromises = surveyQuestions.encrypted_answers_sets.map(async (encryptedAnswerSet) => {
+                const answers = await Promise.all(encryptedAnswerSet.map(async (encryptedAnswer) => {
+                    console.log(encryptedAnswer)
+                    const answer = await decryptStringWithPrivateKey(privateKey, encryptedAnswer);
+                    console.log(answer)
+                    try {
+                        return JSON.parse(answer);
+                    } catch(e) {
+                        return answer.toString();
+                    }
+                }));
+                return answers;
             });
+    
             const decryptedAnswers = await Promise.all(decryptedAnswersPromises);
             setDecryptedAnswers(decryptedAnswers);
         } catch (error) {
             console.error("Error decrypting answers:", error);
         }
     };
+    
 
 
     const hasAnswersOrNeedsQuestions = surveyQuestions && (!surveyQuestions.is_expired || surveyQuestions.is_expired && surveyQuestions.encrypted_answers_sets);
