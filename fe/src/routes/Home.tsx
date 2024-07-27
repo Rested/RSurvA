@@ -9,49 +9,39 @@ import { generateRSA } from '../crypto';
 import QuestionButtons from '../components/QuestionButtons';
 import { Divider } from '../components/Divider';
 
-
 const apiUrl = import.meta.env.VITE_API_URL;
-
 const QUESTION_TYPE = 'plaintext';
-
-interface QuestionsProps {
-    name: string;
-}
-
-interface Question {
-    text: string;
-    question_type: string;
-}
-
-
-
-
 
 const Questions = () => {
     const [surveyName, setSurveyName] = useState<string>("");
-
     const [questions, setQuestions] = useState<Question[]>([]);
     const [surveyDuration, setSurveyDuration] = useState<number>(60 * 24);
     const [surveyMinResponses, setSurveyMinResponses] = useState<number>(5);
     const [shareLinks, setShareLinks] = useState<{ link: string; privateKey: string, publicKey: string } | null>(null);
 
-    const handleQuestionChange = (index: number, text: string ) => {
+    const handleQuestionChange = (index: number, text: string) => {
         setQuestions(questions.map((question, i) => (index === i ? { ...question, text } : question)));
     };
 
-    const handleQuestionAdd = (questionType) => {
+    const handleQuestionAdd = (questionType: string) => {
         setQuestions(questions.concat([{ text: "", question_type: questionType }]));
     };
 
     const handleSurveyNameChange = (event) => {
-        setSurveyName(event.target.value);    
+        setSurveyName(event.target.value);
     };
 
-
     const handleShareSurvey = async () => {
-        const {surveyId, privateKeyB64, publicKeyB64} = await generateRSA();
+        const { surveyId, privateKeyB64, publicKeyB64 } = await generateRSA();
         fetch(`${apiUrl}/survey`, {
-            body: JSON.stringify({ name: surveyName, questions, survey_id: surveyId, public_key: publicKeyB64, duration: surveyDuration, min_responses: surveyMinResponses }),
+            body: JSON.stringify({
+                name: surveyName,
+                questions,
+                survey_id: surveyId,
+                public_key: publicKeyB64,
+                duration: surveyDuration,
+                min_responses: surveyMinResponses
+            }),
             method: "POST",
             headers: { "Content-Type": "application/json" },
         })
@@ -63,71 +53,94 @@ const Questions = () => {
                         publicKey: publicKeyB64
                     });
                 }
-            })
-    }
-    return shareLinks ? <ShareLinks {...shareLinks} duration={durations[surveyDuration]} minResponses={surveyMinResponses} /> : (<div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
-        <TitleBar text={"Create An Anonymous Survey"}/>
-        <Divider text="Create"/>
-        <div className="mb-6">
-            <label 
-                htmlFor="survey-name" 
-                className="block text-md font-medium text-gray-900 mb-2">
-                Survey Name
-            </label>
-            <input
-                id="survey-name"
-                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="My Survey"
-                onInput={handleSurveyNameChange}
-                value={surveyName}
-            />
-        </div>
+            });
+    };
 
-        {questions.map((question, index) => (
-            <QuestionEntry index={index} onQuestionChange={handleQuestionChange} question={question} />
-        ))}
-        <QuestionButtons onAddQuestion={handleQuestionAdd}/>
-        <Divider text="Preview"/>
-        <div class="mb-4">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">{surveyName}</h2>
-            <SurveyPreview questions={questions}/>
-        </div>
-        <Divider text="Share"/>
-        <div class="mb-4">
-            <label htmlFor="survey-duration" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Survey Duration <small class="font-bold">(You won't be able to see the results till this is up - participants will be able to see this)</small></label>
-            <select
-                id="survey-duration"
-                value={surveyDuration}
-                onChange={(e) => setSurveyDuration(parseInt(e.target.value))}
-                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+    return shareLinks ? (
+        <ShareLinks
+            surveyName={surveyName}
+            {...shareLinks}
+            duration={durations[surveyDuration]}
+            minResponses={surveyMinResponses}
+        />
+    ) : (
+        <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
+            <TitleBar text="Create An Anonymous Survey" />
+            <Divider text="Create" />
+            <div className="mb-6">
+                <label htmlFor="survey-name" className="block text-md font-medium text-base-content mb-2">
+                    Survey Name
+                </label>
+                <input
+                    id="survey-name"
+                    className="block w-full px-4 py-2 input input-bordered"
+                    placeholder="My Survey"
+                    onInput={handleSurveyNameChange}
+                    value={surveyName}
+                />
+            </div>
+            {questions.map((question, index) => (
+                <QuestionEntry
+                    key={index}
+                    index={index}
+                    onQuestionChange={handleQuestionChange}
+                    question={question}
+                />
+            ))}
+            <QuestionButtons onAddQuestion={handleQuestionAdd} />
+            <Divider text="Preview" />
+            <div className="mb-4">
+                <h2 className="text-xl font-bold text-base-content mb-4">
+                    {surveyName}
+                </h2>
+                <SurveyPreview questions={questions} />
+            </div>
+            <Divider text="Share" />
+            <div className="mb-4">
+                <label htmlFor="survey-duration" className="label text-base-content mb-2">
+                    Duration
+                </label>
+                <select
+                    id="survey-duration"
+                    value={surveyDuration}
+                    onChange={(e) => setSurveyDuration(parseInt(e.target.value))}
+                    className="block w-full px-4 py-2 select select-bordered"
+                >
+                    {Object.entries(durations).map(([value, label]) => (
+                        <option key={value} value={parseInt(value)}>
+                            {label}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <div className="mb-4">
+                <label htmlFor="survey-min-responses" className="label text-base-content mb-2">
+                    Minimum Responses
+                </label>
+                <input
+                    id="survey-min-responses"
+                    type="number"
+                    value={surveyMinResponses}
+                    onChange={(e) => setSurveyMinResponses(parseInt(e.target.value))}
+                    className="block w-full px-4 py-2 input input-bordered"
+                />
+            </div>
+            <div className="mb-4 text-sm text-base-content font-semibold">
+                <p className="text-md">
+                    You won't be able to see the results until these conditions are met.
+                </p>
+                <p className="text-md">
+                    Participants will be able to see these conditions when answering the survey.
+                </p>
+            </div>
+            <button
+                onClick={handleShareSurvey}
+                className="w-full px-4 py-2 btn btn-primary text-white font-semibold rounded-xl shadow-lg hover:bg-indigo-700 transform hover:scale-105 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-2"
             >
-                {Object.entries(durations).map(([value, label]) => (
-                    <option key={value} value={parseInt(value)}>
-                        {label}
-                    </option>
-                ))}
-            </select>
+                Share Survey
+            </button>
         </div>
-        <div class="mb-4">
-            <label htmlFor="survey-min-responses" class="block text-sm font-medium leading-6 text-gray-900 mb-2">Survey Responses <small>(You won't be able to see the results till this many answers are collected - participants can see this)</small></label>
-            <input
-                id="survey-min-responses"
-                type="number"
-                value={surveyMinResponses}
-                onChange={(e) => setSurveyMinResponses(parseInt(e.target.value))}
-                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            />
-        </div>
-        <button
-            onClick={handleShareSurvey}
-            class="w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-        >
-            Share Survey
-        </button>
-    </div>
     );
-
-
 };
 
 const Home = () => {

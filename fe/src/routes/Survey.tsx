@@ -70,11 +70,11 @@ const Survey = ({ surveyId }) => {
 
     return (
         submitted ? 
-        <div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
-            <h1 class="text-lg font-medium text-gray-900 mb-4">Thank you for your response!</h1>
+        <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
+            <h1 class="text-lg font-medium text-base-content mb-4">Thank you for your response!</h1>
         </div> 
         : 
-        <div class="p-6 mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
+        <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
             <TitleBar text={surveyQuestions?.is_expired ? 'Survey Responses' : 'Respond to Survey'}/>
             {surveyQuestions?.is_expired && decryptedAnswers === null ? 
                 <SurveyExpired

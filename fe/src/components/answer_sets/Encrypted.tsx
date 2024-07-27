@@ -5,8 +5,8 @@ const EncryptedSet = ({ answers }) => {
     return (
         <div class="space-y-2">
             {answers.map((a, i) => (
-                <div key={i} class="flex items-center text-gray-700">
-                    <LockClosedIcon class="w-5 h-5 mr-2 text-gray-700" />
+                <div key={i} class="flex items-center text-base-content">
+                    <LockClosedIcon class="w-5 h-5 mr-2 text-secondary" />
                     Encrypted Answer {i+1}
                 </div>
             ))}

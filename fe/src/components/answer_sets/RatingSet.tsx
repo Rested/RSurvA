@@ -4,10 +4,10 @@ const RatingSet = ({ answers }) => {
 
     return (
         <div className="space-y-2">
-            <p className="text-gray-700 font-bold text-sm">Average: {average.toFixed(2)}</p>
+            <p className="text-base-content font-bold text-sm">Average: {average.toFixed(2)}</p>
             <ul className="list-disc list-inside">
                 {answers.map((a, i) => (
-                    <li key={i} className="text-gray-700">{a}</li>
+                    <li key={i} className="text-base-content">{a}</li>
                 ))}
             </ul>
         </div>

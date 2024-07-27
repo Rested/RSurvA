@@ -27,7 +27,7 @@ const QuestionAnswer = (props) => {
     }
     return (
         <div class="mb-6">
-            <label class="block text-gray-900 font-semibold mb-2">
+            <label class="block text-primary font-semibold mb-2">
                 {props.index + 1}. {props.text}
             </label>
             {questionComponent}

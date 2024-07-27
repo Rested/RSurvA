@@ -1,12 +1,18 @@
-
 const TitleBar = ({ text }) => {
     return (
-        <div class="bg-gray-100 p-4 rounded-t-lg -m-6 mb-8">
-            <h1 class="text-lg font-extrabold text-gray-900">
-                {text}
-            </h1>
+        <div className="navbar">
+            <div className="flex-1">
+                <span className="text-xl font-bold">{text}</span>
+            </div>
+            <div className="flex-none">
+                <ul className="menu menu-horizontal px-1">
+                    <li><a href="/">Create Survey</a></li>
+                </ul>
+                <ul className="menu menu-horizontal px-1">
+                    <li><a href="/how-it-works">How it Works</a></li>
+                </ul>
+            </div>
         </div>
-
     );
 };
 
