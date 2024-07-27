@@ -10,9 +10,9 @@ export function App() {
         <LocationProvider>
             <ErrorBoundary>
                 <Router>
-                    <Home path="/" />
-                    <Route path="/survey/:surveyId" component={Survey} />
-                    <HowItWorks path="/how-it-works" />
+                    <Home path={`${import.meta.env.BASE_URL}/`} />
+                    <Route path={`${import.meta.env.BASE_URL}/survey/:surveyId`} component={Survey} />
+                    <HowItWorks path={`${import.meta.env.BASE_URL}/how-it-works`} />
                     <NotFound default />
                 </Router>
             </ErrorBoundary>
