@@ -66,13 +66,13 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                     onClick={() => handleCopyToClipboard(privateKey, "Private key copied to clipboard!")}
                     class="px-4 py-2 btn btn-primary rounded-r-lg flex items-center mr-2"
                 >
-                    <ClipboardCopyIcon class="mr-2" /> Copy
+                    <ClipboardCopyIcon /> Copy
                 </button>
                 <button
                     onClick={() => handleDownload(`${surveyName}-private-key.txt`, privateKey)}
                     class="px-4 py-2 btn btn-secondary rounded-lg flex items-center"
                 >
-                    <DownloadIcon class="mr-2" /> Download
+                    <DownloadIcon /> Download
                 </button>
             </div>
             <p class="text-base-content mb-4"><b>Keep this safe as you will need it to view the responses</b> after <b>{duration}</b> and at least <b>{minResponses} responses</b> are collected.</p>
@@ -88,13 +88,13 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                     onClick={() => handleCopyToClipboard(link, "Survey link copied to clipboard!")}
                     class="px-4 py-2 btn btn-primary rounded-r-lg flex items-center mr-2"
                 >
-                    <ClipboardCopyIcon class="mr-2" /> Copy
+                    <ClipboardCopyIcon /> Copy
                 </button>
                 <button
                     onClick={() => handleDownload(`${surveyName}-survey-link.txt`, privateKey)}
                     class="px-4 py-2 btn btn-secondary rounded-lg flex items-center"
                 >
-                    <DownloadIcon class="mr-2" /> Download
+                    <DownloadIcon /> Download
                 </button>
             </div>
             <p class="text-base-content mb-4">The link contains the SHA-256 hash of <b>your full RSA public key</b> which is:</p>

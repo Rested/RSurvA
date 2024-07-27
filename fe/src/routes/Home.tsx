@@ -18,6 +18,7 @@ const Questions = () => {
     const [surveyDuration, setSurveyDuration] = useState<number>(60 * 24);
     const [surveyMinResponses, setSurveyMinResponses] = useState<number>(5);
     const [shareLinks, setShareLinks] = useState<{ link: string; privateKey: string, publicKey: string } | null>(null);
+    const [validationError, setValidationError] = useState<string | null>(null);
 
     const handleQuestionChange = (index: number, text: string) => {
         setQuestions(questions.map((question, i) => (index === i ? { ...question, text } : question)));
@@ -31,7 +32,35 @@ const Questions = () => {
         setSurveyName(event.target.value);
     };
 
+    const validateSurvey = () => {
+        if (surveyName.trim().length < 1) {
+            setValidationError("Survey title must be at least 1 character long.");
+            return false;
+        }
+
+        if (questions.length === 0){
+            setValidationError("Survey must have at least one question.");
+            return false;
+        }
+
+        for (const question of questions) {
+            const trimmedText = question.text.trim();
+            const questionMarkCount = (trimmedText.match(/\?/g) || []).length;
+            if (questionMarkCount < 1 || trimmedText.length < 3) {
+                setValidationError("Each question must contain at least a question mark and two other characters.");
+                return false;
+            }
+        }
+
+        setValidationError(null);
+        return true;
+    };
+
     const handleShareSurvey = async () => {
+        if (!validateSurvey()) {
+            return;
+        }
+
         const { surveyId, privateKeyB64, publicKeyB64 } = await generateRSA();
         fetch(`${apiUrl}/survey`, {
             body: JSON.stringify({
@@ -88,6 +117,11 @@ const Questions = () => {
                 />
             ))}
             <QuestionButtons onAddQuestion={handleQuestionAdd} />
+            {validationError && (
+                <div className="text-red-500 mb-4">
+                    {validationError}
+                </div>
+            )}
             <Divider text="Preview" />
             <div className="mb-4">
                 <h2 className="text-xl font-bold text-base-content mb-4">
