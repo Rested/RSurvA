@@ -18,3 +18,6 @@ primary_region = 'lhr'
 
 [[vm]]
   size = 'shared-cpu-1x'
+
+[env]
+  FE_URL = 'https://rested.github.io'

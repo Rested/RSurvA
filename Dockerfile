@@ -20,5 +20,4 @@ RUN /root/.cargo/bin/uv pip install --system --no-cache -r requirements.txt
 # Copy the FastAPI application code
 COPY ./app.py app.py
 
-# Run the application with gunicorn and uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", '--port', "8080"]
+CMD exec uvicorn app:app --host 0.0.0.0 --port 8080

@@ -14,15 +14,28 @@ import os
 import redis
 
 import logging
+from pydantic_settings import BaseSettings
+from pydantic import AnyHttpUrl, RedisDsn
+
+DEV_FE_URL = "http://localhost:5173"
+
+
+class Settings(BaseSettings):
+    log_level: str = "DEBUG"
+    fe_url: AnyHttpUrl = DEV_FE_URL
+    redis_url: RedisDsn = "redis://localhost:6379"
+
+
+settings = Settings()
 
 _logger = logging.getLogger(__name__)
-logging.basicConfig(level=os.getenv("LOG_LEVEL", "DEBUG"))
+logging.basicConfig(level=settings.log_level)
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.getenv("FE_URL", "http://localhost:5173")],
+    allow_origins=list({DEV_FE_URL, settings.fe_url}),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -80,7 +93,12 @@ surveys = {}
 survey_answers = {}
 
 
-r = redis.Redis(host=os.getenv("REDIS_HOST", "localhost"), port=6379, db=0)
+r = redis.Redis(
+    host=settings.redis_url.host,
+    port=settings.redis_url.port,
+    db=int(settings.redis_url.path.lstrip("/")) or 0,
+    password=settings.redis_url.password,
+)
 
 
 @app.post("/survey")
