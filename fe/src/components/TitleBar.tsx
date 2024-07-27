@@ -14,10 +14,10 @@ const TitleBar = ({ text }) => {
                     <span className="text-xl font-bold">{text}</span>
                     <div className="flex-none">
                         <ul className="menu menu-horizontal px-1">
-                            <li><a href="/">Create Survey</a></li>
+                            <li><a href={`${import.meta.env.BASE_URL}/`}>Create Survey</a></li>
                         </ul>
                         <ul className="menu menu-horizontal px-1">
-                            <li><a href="/how-it-works">How it Works</a></li>
+                            <li><a href={`${import.meta.env.BASE_URL}/how-it-works`}>How it Works</a></li>
                         </ul>
                     </div>
                 </div>

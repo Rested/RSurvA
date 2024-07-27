@@ -43,9 +43,7 @@ const HowItWorks = () => {
 
     return (
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
-            <TitleBar text="How it Works" link={<a href="/" class="text-primary underline">
-                Back to Home
-            </a>} />
+            <TitleBar text="How it Works"/>
             <div class="text-base-content text-lg font-semibold mb-4">
                 <strong>Secure, Anonymous Surveys with End-to-End Encryption</strong>
             </div>
