@@ -46,7 +46,7 @@ jobs:
       - name: Build project
         run: |
           cd fe
-          npm run build
+          npm run build-ghp
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
