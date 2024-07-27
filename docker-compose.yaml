@@ -9,7 +9,7 @@ services:
 
   be:
     build:
-      context: .
+      context: ./be
       dockerfile: Dockerfile
     environment:
       - FE_URL=http://localhost:8005
