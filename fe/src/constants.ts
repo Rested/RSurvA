@@ -2,12 +2,13 @@ import { DocumentIcon, PencilIcon, StarIcon } from '@heroicons/react/24/solid';
 
 
 export const durations: { [key: number]: string } = {
-    1: '1 Minute',
-    20: '20 Minutes',
-    60: '1 Hour',
-    1440: '1 Day', // 60*24
-    10080: '1 Week', // 60*24*7
-    20160: '2 Weeks', // 60*24*7*2
+    10: '10 seconds',
+    60: '1 Minute',
+    1200: '20 Minutes', // 20 * 60
+    3600: '1 Hour', // 60 * 60
+    86400: '1 Day', // 60 * 60 * 24
+    604800: '1 Week', // 60 * 60 * 24 * 7
+    1209600: '2 Weeks', // 60 * 60 * 24 * 7 * 2
 };
 
 

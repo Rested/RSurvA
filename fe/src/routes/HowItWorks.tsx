@@ -2,7 +2,7 @@ import { useEffect } from 'preact/hooks';
 import { Divider } from '../components/Divider';
 import mermaid from 'mermaid';
 import TitleBar from '../components/TitleBar';
-import { KeyIcon, LockClosedIcon, ShieldCheckIcon } from '@heroicons/react/24/solid';
+import { KeyIcon, LockClosedIcon, ShieldCheckIcon, CodeBracketIcon } from '@heroicons/react/24/solid';
 
 const diagram = `sequenceDiagram
     participant Survey Owner
@@ -43,7 +43,7 @@ const HowItWorks = () => {
 
     return (
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
-            <TitleBar text="How it Works"/>
+            <TitleBar text="How it Works" />
             <div class="text-base-content text-lg font-semibold mb-4">
                 <strong>Secure, Anonymous Surveys with End-to-End Encryption</strong>
             </div>
@@ -68,6 +68,13 @@ const HowItWorks = () => {
                             <strong>Private Key Decryption:</strong> Encrypted answers can only be unlocked by the survey owner after the survey has completed using a private key only they have access to.
                         </span>
                     </li>
+                    <li class="flex items-start">
+                        <CodeBracketIcon style="height: 24px; width: 24px;" class="text-success mr-2" />
+                        <span>
+                            <strong>Open Source:</strong> This project is open-source, which means it is auditable and can be self-hosted. Check out the code on <a href="https://github.com/rested/RSurvA" class="text-primary" target="_blank" rel="noopener noreferrer">GitHub</a>.
+                        </span>
+                    </li>
+
                 </ul>
             </div>
 

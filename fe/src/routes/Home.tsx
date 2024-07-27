@@ -10,12 +10,11 @@ import QuestionButtons from '../components/QuestionButtons';
 import { Divider } from '../components/Divider';
 
 const apiUrl = import.meta.env.VITE_API_URL;
-const QUESTION_TYPE = 'plaintext';
 
 const Questions = () => {
     const [surveyName, setSurveyName] = useState<string>("");
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [surveyDuration, setSurveyDuration] = useState<number>(60 * 24);
+    const [surveyDuration, setSurveyDuration] = useState<number>(60 * 60 * 24);
     const [surveyMinResponses, setSurveyMinResponses] = useState<number>(5);
     const [shareLinks, setShareLinks] = useState<{ link: string; privateKey: string, publicKey: string } | null>(null);
     const [validationError, setValidationError] = useState<string | null>(null);
@@ -140,11 +139,13 @@ const Questions = () => {
                     onChange={(e) => setSurveyDuration(parseInt(e.target.value))}
                     className="block w-full px-4 py-2 select select-bordered"
                 >
-                    {Object.entries(durations).map(([value, label]) => (
-                        <option key={value} value={parseInt(value)}>
-                            {label}
-                        </option>
-                    ))}
+                    {Object.entries(durations).map(([value, label]) => {
+                        return (
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
+                        )
+                    })}
                 </select>
             </div>
             <div className="mb-4">

@@ -56,7 +56,7 @@ class Survey(BaseModel):
     public_key: str
     survey_id: str
 
-    duration: int  # minutes
+    duration: int  # seconds
     min_responses: int
 
     created_at: datetime = Field(..., default_factory=lambda: datetime.now(UTC))
@@ -64,20 +64,20 @@ class Survey(BaseModel):
     @computed_field
     @property
     def is_expired(self) -> bool:
-        return (self.created_at + timedelta(seconds=self.duration * 60)) < datetime.now(
+        return (self.created_at + timedelta(seconds=self.duration)) < datetime.now(
             UTC
         )
 
     @computed_field
     @property
     def expires_at(self) -> str:
-        return (self.created_at + timedelta(seconds=self.duration * 60)).isoformat()
+        return (self.created_at + timedelta(seconds=self.duration)).isoformat()
 
     @computed_field
     @property
     def results_available_till(self) -> str:
         return (
-            self.created_at + timedelta(seconds=(self.duration + SURVEY_TTL) * 60)
+            self.created_at + timedelta(seconds=(self.duration + (SURVEY_TTL*60)))
         ).isoformat()
 
 
@@ -107,7 +107,7 @@ def create_survey(survey: Survey):
     key = f"survey:{survey.survey_id}"
     r.set(key, survey_data)
     _logger.debug(f"saved survey at '%s'", key)
-    r.expire(key, (survey.duration + SURVEY_TTL) * 60)  # setting expiry
+    r.expire(key, int(round((survey.duration + SURVEY_TTL))))  # setting expiry
     return Response(status_code=201)
 
 

@@ -60,7 +60,7 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                 <input
                     value={privateKey}
                     readOnly
-                    class="flex-grow px-4 py-2 input input-bordered bg-black mr-2"
+                    class="flex-grow px-4 py-2 input input-bordered mr-2"
                 />
                 <button
                     onClick={() => handleCopyToClipboard(privateKey, "Private key copied to clipboard!")}
@@ -82,7 +82,7 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                 <input
                     value={link}
                     readOnly
-                    class="flex-grow px-4 py-2 input input-bordered bg-black mr-2"
+                    class="flex-grow px-4 py-2 input input-bordered mr-2"
                 />
                 <button
                     onClick={() => handleCopyToClipboard(link, "Survey link copied to clipboard!")}
@@ -102,7 +102,7 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                 <input
                     value={publicKey}
                     readOnly
-                    class="flex-grow px-4 py-2 input input-bordered bg-black mr-2"
+                    class="flex-grow px-4 py-2 input input-bordered mr-2"
                 />
                 <button
                     onClick={() => handleCopyToClipboard(publicKey, "Public key copied to clipboard!")}

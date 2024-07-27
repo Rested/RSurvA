@@ -15,10 +15,11 @@ const QuestionEntry = ({ question, index, onQuestionChange }: QuestionEntryProps
         <div className="mb-6 flex items-center">
             <span className="text-sm font-medium text-primary mr-4">{index + 1}.</span>
             <input
+                id={`question-entry-${index}`}
                 type="text"
                 value={question.text}
                 onInput={(e) => onQuestionChange(index, (e.target as HTMLInputElement).value)}
-                className="input input-bordered max-w-xl flex-grow mr-4"
+                className="question-entry input input-bordered max-w-xl flex-grow mr-4"
             />
             <div className="flex items-center space-x-2 ml-auto">
                 <span className="flex items-center space-x-1">
