@@ -12,8 +12,8 @@ services:
       context: ./be
       dockerfile: Dockerfile
     environment:
-      - FE_URL=http://localhost:8005
-      - REDIS_URL=redis:6379
+      - FE_URL=http://localhost:4173
+      - REDIS_URL=redis://redis:6379/0
     ports:
       - "8002:8080"
     depends_on:
@@ -24,6 +24,6 @@ services:
       context: ./fe
       dockerfile: Dockerfile
     ports:
-      - "8005:80"
+      - "4173:4173"
     depends_on:
       - be

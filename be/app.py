@@ -22,7 +22,7 @@ DEV_FE_URL = "http://localhost:5173"
 
 class Settings(BaseSettings):
     log_level: str = "DEBUG"
-    fe_url: AnyHttpUrl = DEV_FE_URL
+    fe_url: str = DEV_FE_URL
     redis_url: RedisDsn = "redis://localhost:6379"
 
 
