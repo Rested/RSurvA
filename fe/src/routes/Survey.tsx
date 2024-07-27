@@ -26,7 +26,12 @@ const Survey = ({ surveyId }) => {
         fetch(`${apiUrl}/survey/${encodeURIComponent(surveyId)}`, {
             method: "GET",
         })
-            .then((r) => r.json())
+            .then((r) => {
+                if (r.status === 200) {
+                    return r.json()
+                }
+                window.location.href = `${window.location.origin}/not-found`
+            })
             .then((rj) => {
                 setSurveyQuestions(rj);
                 setSurveyQuestionAnswers(rj.questions.map(() => null))

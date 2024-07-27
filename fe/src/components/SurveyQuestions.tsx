@@ -54,18 +54,18 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                     <div class="mt-4 p-4 border-l-4 border-gray-500 bg-gray-800 text-base-content rounded">
                         <div class="flex items-center mb-2">
                             <ShieldCheckIcon class="h-5 w-5 text-gray-500 mr-2" />
-                            <h3 class="text-lg font-semibold">Security Notes</h3>
+                            <h3 class="text-lg font-semibold">Anonymity and Privacy</h3>
                         </div>
-                        <p>
+                        <p class="mt-2">
                             Answers are stored encrypted and can only be decrypted by the survey owner
                             after <strong class="font-semibold">{durations[surveyQuestions.duration]}</strong> (<strong class="font-semibold">{convertUTCToLocal(surveyQuestions.expires_at)}</strong>)
                             and the survey has received at least <strong class="font-semibold">{surveyQuestions.min_responses}</strong> responses.
                         </p>
-                        <p>
+                        <p class="mt-2">
                             You should only answer surveys which you know have been shared with others as the owner could (if they were evil) add fake responses so that the threshold of <strong class="font-semibold">{surveyQuestions.min_responses}</strong> responses was exceeded.
                         </p>
-                        <p>
-                            The duration limit could only be manipulated if they controlled the server (and were evil).
+                        <p class="mt-2">
+                            The duration limit could only be manipulated if they controlled the server (and were evil). You can audit the server code on <a href="https://github.com/rested/rsurva">github</a>.
                         </p>
                         <p class="mt-2">
                             The public key your answers are encrypted with is:
@@ -74,8 +74,8 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                             type="text"
                             value={surveyQuestions.public_key}
                             readOnly
-                            class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500 bg-gray-100 text-base-content"
-                        />
+                            class="flex-grow px-4 py-2 input input-bordered bg-black w-full mt-2"
+                            />
                         <p class="mt-2">
                             You can confirm this with the survey owner if you want to be sure that the server hasn't tampered with it!
                         </p>
