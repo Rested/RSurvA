@@ -41,7 +41,7 @@ const QuestionAnswerSet = ({ question_type, answers, index, text }) => {
     }
     return (
         <div class="mb-6">
-            <label class="block text-base-content font-semibold mb-2">
+            <label class="block text-primary font-semibold mb-2">
                 {index + 1}. {text}
             </label>
             <div class="px-4">

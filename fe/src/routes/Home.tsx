@@ -38,7 +38,7 @@ const Questions = () => {
             return false;
         }
 
-        if (questions.length === 0){
+        if (questions.length === 0) {
             setValidationError("Survey must have at least one question.");
             return false;
         }
@@ -94,7 +94,7 @@ const Questions = () => {
         />
     ) : (
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
-            <TitleBar text="Create An Anonymous Survey" />
+            <TitleBar text="Create Survey" />
             <Divider text="Create" />
             <div className="mb-6">
                 <label htmlFor="survey-name" className="block text-md font-medium text-base-content mb-2">
@@ -160,8 +160,12 @@ const Questions = () => {
                 />
             </div>
             <div className="mb-4 text-sm text-base-content font-semibold">
-                <p className="text-md">
+                <p className="text-md mb-1">
                     You won't be able to see the results until these conditions are met.
+                </p>
+                <p className="text-md mb-1">
+                    If enough responses are not received within the time limit then the survey will just expire and you will not be able to see
+                    any responses. This is to protect respondent anonymity.
                 </p>
                 <p className="text-md">
                     Participants will be able to see these conditions when answering the survey.

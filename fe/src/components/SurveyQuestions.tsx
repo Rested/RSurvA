@@ -51,7 +51,7 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                     >
                         Submit Answers
                     </button>
-                    <div class="mt-4 p-4 border-l-4 border-gray-500 bg-gray-100 text-gray-700 rounded">
+                    <div class="mt-4 p-4 border-l-4 border-gray-500 bg-gray-800 text-base-content rounded">
                         <div class="flex items-center mb-2">
                             <ShieldCheckIcon class="h-5 w-5 text-gray-500 mr-2" />
                             <h3 class="text-lg font-semibold">Security Notes</h3>
