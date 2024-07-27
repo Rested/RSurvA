@@ -32,7 +32,6 @@ app.add_middleware(
 SURVEY_TTL = 60 * 24 * 30  # save surveys for 30 days
 
 
-
 class Question(BaseModel):
     text: str
     question_type: str
@@ -55,21 +54,23 @@ class Survey(BaseModel):
         return (self.created_at + timedelta(seconds=self.duration * 60)) < datetime.now(
             UTC
         )
-    
+
     @computed_field
     @property
     def expires_at(self) -> str:
         return (self.created_at + timedelta(seconds=self.duration * 60)).isoformat()
 
-
     @computed_field
     @property
     def results_available_till(self) -> str:
-        return (self.created_at + timedelta(seconds=(self.duration + SURVEY_TTL) * 60)).isoformat()
+        return (
+            self.created_at + timedelta(seconds=(self.duration + SURVEY_TTL) * 60)
+        ).isoformat()
 
 
 class SurveyAnswers(Survey):
     encrypted_answers_sets: list[list[str]]
+
 
 class EncryptedAnswers(BaseModel):
     encrypted_answers: list[str]
@@ -91,6 +92,7 @@ def create_survey(survey: Survey):
     r.expire(key, (survey.duration + SURVEY_TTL) * 60)  # setting expiry
     return Response(status_code=201)
 
+
 @app.get("/survey/{survey_id}")
 def get_survey(survey_id: str) -> Survey | SurveyAnswers:
     key = f"survey:{survey_id}"
@@ -103,23 +105,33 @@ def get_survey(survey_id: str) -> Survey | SurveyAnswers:
     survey = Survey(**survey_data)
     answer_key = f"survey:{survey_id}-encrypted-answers"
 
-    _logger.debug("have received %d responses", r.llen(f"survey:{survey_id}-encrypted-answers"))
+    _logger.debug(
+        "have received %d responses", r.llen(f"survey:{survey_id}-encrypted-answers")
+    )
 
     if survey.is_expired and r.llen(answer_key) >= survey.min_responses:
         # Retrieve answer sets
-        answer_sets = [json.loads(answer_set) for answer_set in r.lrange(answer_key, 0, -1)]
+        answer_sets = [
+            json.loads(answer_set) for answer_set in r.lrange(answer_key, 0, -1)
+        ]
 
         # Ensure answer sets have consistent number of answers
         num_questions = len(survey.questions)
         for answer_set in answer_sets:
             if len(answer_set) != num_questions:
-                _logger.error("Answer set length mismatch. Expected %d, got %d", num_questions, len(answer_set))
+                _logger.error(
+                    "Answer set length mismatch. Expected %d, got %d",
+                    num_questions,
+                    len(answer_set),
+                )
                 return None
 
         new_answer_sets = [[] for _ in answer_sets]
 
         for question_idx in range(num_questions):
-            all_question_answers = [answer_set[question_idx] for answer_set in answer_sets]
+            all_question_answers = [
+                answer_set[question_idx] for answer_set in answer_sets
+            ]
             random.shuffle(all_question_answers)
 
             for answer_set_idx, new_answer_set in enumerate(new_answer_sets):
@@ -128,13 +140,16 @@ def get_survey(survey_id: str) -> Survey | SurveyAnswers:
 
     return survey
 
+
 @app.post("/survey/{survey_id}/answer")
 def submit_survey_answer(survey_id: str, answers: EncryptedAnswers):
-    
+
     if not r.exists(f"survey:{survey_id}"):
         return Response(status_code=404)
-    
+
     # Add answer to the list of answers in Redis
-    r.rpush(f"survey:{survey_id}-encrypted-answers", json.dumps(answers.encrypted_answers))
+    r.rpush(
+        f"survey:{survey_id}-encrypted-answers", json.dumps(answers.encrypted_answers)
+    )
 
     return Response(status_code=201)

@@ -21,4 +21,4 @@ RUN /root/.cargo/bin/uv pip install --system --no-cache -r requirements.txt
 COPY ./app.py app.py
 
 # Run the application with gunicorn and uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", '--port', "8080"]

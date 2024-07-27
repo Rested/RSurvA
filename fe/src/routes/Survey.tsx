@@ -70,9 +70,7 @@ const Survey = ({ surveyId }) => {
         try {
             const decryptedAnswersPromises = surveyQuestions.encrypted_answers_sets.map(async (encryptedAnswerSet) => {
                 const answers = await Promise.all(encryptedAnswerSet.map(async (encryptedAnswer) => {
-                    console.log(encryptedAnswer)
                     const answer = await decryptStringWithPrivateKey(privateKey, encryptedAnswer);
-                    console.log(answer)
                     try {
                         return JSON.parse(answer);
                     } catch(e) {
