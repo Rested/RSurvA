@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: E2E in docker
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
