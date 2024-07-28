@@ -30,7 +30,7 @@ const Survey = ({ surveyId }) => {
                 if (r.status === 200) {
                     return r.json()
                 }
-                window.location.href = `${import.meta.env.BASE_URL}/not-found`
+                window.location.href = `${import.meta.env.BASE_URL}not-found`
             })
             .then((rj) => {
                 setSurveyQuestions(rj);

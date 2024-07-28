@@ -76,7 +76,7 @@ const Questions = () => {
             .then((r) => {
                 if (r.status === 201) {
                     setShareLinks({
-                        link: `${window.location.origin}/survey/${surveyId}`,
+                        link: `${import.meta.env.BASE_URL}survey/${surveyId}`,
                         privateKey: privateKeyB64,
                         publicKey: publicKeyB64
                     });
