@@ -1,4 +1,4 @@
-import { lazy, LocationProvider, ErrorBoundary, Router, Route } from 'preact-iso';
+import { lazy, LocationProvider, ErrorBoundary, Router, Route,  } from 'preact-iso';
 import Home from './routes/Home';
 import HowItWorks from './routes/HowItWorks';
 // Asynchronous imports using lazy

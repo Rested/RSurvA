@@ -20,4 +20,4 @@ primary_region = 'lhr'
   size = 'shared-cpu-1x'
 
 [env]
-  FE_URL = 'https://rested.github.io'
+  FE_URL = 'https://rsurva.pages.dev'
