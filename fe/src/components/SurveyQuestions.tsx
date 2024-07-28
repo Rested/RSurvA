@@ -47,7 +47,7 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                             answers={answers}
                         />
                     );
-                } else {
+                } 
                     return (
                         <QuestionAnswer
                             key={i}
@@ -58,7 +58,7 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                             onChange={handleAnswerChange}
                         />
                     );
-                }
+                
             })}
             {validationError && (
                 <div className="text-red-500 mb-4">

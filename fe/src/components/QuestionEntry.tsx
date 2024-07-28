@@ -7,6 +7,7 @@ interface QuestionEntryProps {
         question_type: string;
     };
     index: number;
+    // eslint-disable-next-line no-unused-vars
     onQuestionChange: (index: number, text: string) => void;
 }
 

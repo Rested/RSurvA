@@ -1,0 +1,34 @@
+name: FE Lint
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'fe/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'fe/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      working-directory: fe
+      run: npm install
+
+    - name: Run ESLint
+      working-directory: fe
+      run: npm run lint
