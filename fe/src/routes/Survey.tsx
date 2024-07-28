@@ -1,8 +1,4 @@
 import { useEffect, useState } from "preact/hooks";
-import QuestionAnswer from "../components/QuestionAnswer";
-import QuestionAnswerSet from "../components/QuestionAnswerSet";
-import { Fragment } from "preact/jsx-runtime";
-import { durations } from "../constants";
 import { decryptStringWithPrivateKey, encryptStringWithPublicKey } from "../crypto";
 import SurveyQuestions from "../components/SurveyQuestions";
 import SurveyExpired from "../components/SurveyExpired";
@@ -37,7 +33,7 @@ const Survey = ({ surveyId }) => {
                 setSurveyQuestionAnswers(rj.questions.map(() => null))
             });
 
-    }, []);
+    }, [surveyId]);
     const handleAnswerChange = (index, value) => {
         const answers = [...surveyQuestionAnswers];
         answers[index] = value;
@@ -99,7 +95,7 @@ const Survey = ({ surveyId }) => {
         </div> 
         : 
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
-            <TitleBar text={surveyQuestions?.is_expired ? 'Survey Responses' : 'Respond to Survey'}/>
+            <TitleBar text={surveyQuestions?.is_expired ? 'Survey Responses' : 'Respond to Survey'} />
             {surveyQuestions?.is_expired && decryptedAnswers === null ? 
                 <SurveyExpired
                     surveyQuestions={surveyQuestions}

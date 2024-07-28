@@ -37,8 +37,8 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
     };
     const handleDownload = (filename: string, text: string) => {
         try {
-            var element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            let element = document.createElement('a');
+            element.setAttribute('href', `data:text/plain;charset=utf-8,${  encodeURIComponent(text)}`);
             element.setAttribute('download', filename);
           
             element.style.display = 'none';
@@ -118,7 +118,9 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                 </button>
             </div>
             <button
-                onClick={() => window.location.href = window.location.href}
+                onClick={() => {
+                    window.location.reload();
+                }}
                 class="w-full px-4 py-2 btn btn-success text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transform hover:scale-105 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-offset-2"
             >
                 Create a new survey

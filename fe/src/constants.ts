@@ -11,10 +11,12 @@ export const durations: { [key: number]: string } = {
     1209600: '2 Weeks', // 60 * 60 * 24 * 7 * 2
 };
 
-
 export enum QuestionType {
+    // eslint-disable-next-line no-unused-vars
     ShortText = 'Short Text',
+    // eslint-disable-next-line no-unused-vars
     LongText = 'Long Text',
+    // eslint-disable-next-line no-unused-vars
     Rating = 'Rating',
 }
 

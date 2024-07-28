@@ -15,7 +15,7 @@ const QuestionAnswer = (props) => {
             break;
         case QuestionType.LongText:
             questionComponent = (
-                <LongText {...props}/>
+                <LongText {...props} />
             )
             break;
         case QuestionType.Rating:
