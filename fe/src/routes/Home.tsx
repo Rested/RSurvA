@@ -82,7 +82,7 @@ const Questions = () => {
             .then((r) => {
                 if (r.status === 201) {
                     setShareLinks({
-                        link: `${import.meta.env.BASE_URL}survey/${surveyId}`,
+                        link: `${window.location.origin}${import.meta.env.BASE_URL}survey/${surveyId}`,
                         privateKey: privateKeyB64,
                         publicKey: publicKeyB64
                     });
