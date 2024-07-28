@@ -11,6 +11,12 @@ import { Divider } from '../components/Divider';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
+type Question = {
+    text: string;
+    question_type: string;
+};
+
+
 const Questions = () => {
     const [surveyName, setSurveyName] = useState<string>("");
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -136,7 +142,7 @@ const Questions = () => {
                 <select
                     id="survey-duration"
                     value={surveyDuration}
-                    onChange={(e) => setSurveyDuration(parseInt(e.target.value))}
+                    onChange={(e) => setSurveyDuration(parseInt(e.target.value, 10))}
                     className="block w-full px-4 py-2 select select-bordered"
                 >
                     {Object.entries(durations).map(([value, label]) => {
@@ -156,7 +162,7 @@ const Questions = () => {
                     id="survey-min-responses"
                     type="number"
                     value={surveyMinResponses}
-                    onChange={(e) => setSurveyMinResponses(parseInt(e.target.value))}
+                    onChange={(e) => setSurveyMinResponses(parseInt(e.target.value, 10))}
                     className="block w-full px-4 py-2 input input-bordered"
                 />
             </div>

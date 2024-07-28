@@ -4,6 +4,9 @@
     "cypress-real-events": "^1.13.0"
   },
   "scripts": {
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "test:local": "cypress run",
+    "test:docker": "cypress run --config baseUrl=http://localhost:4173",
+    "test:prod": "cypress run --config baseUrl=https://rested.github.io/RSurvA/"
   }
 }
