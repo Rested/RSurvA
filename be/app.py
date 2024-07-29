@@ -2,7 +2,7 @@ import json
 import random
 import logging
 from datetime import datetime, timedelta, timezone
-from typing import Annotated
+from typing import Annotated, Union
 
 import redis
 from fastapi import FastAPI, Depends, HTTPException
@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.fe_url],
+    allow_origins=[settings.fe_url, "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -96,7 +96,18 @@ def save_survey(r: redis.Redis, survey: Survey):
     r.expire(key, int(round((survey.duration + SURVEY_TTL))))
 
 
-def retrieve_survey(r: redis.Redis, survey_id: str) -> Survey | SurveyAnswers | None:
+def shuffle_answers(answer_sets: list[list[str]], num_questions: int) -> list[list[str]]:
+    new_answer_sets = [[] for _ in answer_sets]
+    for question_idx in range(num_questions):
+        all_question_answers = [
+            answer_set[question_idx] for answer_set in answer_sets
+        ]
+        random.shuffle(all_question_answers)
+        for answer_set_idx, new_answer_set in enumerate(new_answer_sets):
+            new_answer_set.append(all_question_answers[answer_set_idx])
+    return new_answer_sets
+
+def retrieve_survey(r: redis.Redis, survey_id: str) -> Union[Survey, SurveyAnswers, None]:
     key = f"survey:{survey_id}"
     logger.debug("Getting survey at '%s'", key)
     survey_data = r.get(key)
@@ -123,19 +134,11 @@ def retrieve_survey(r: redis.Redis, survey_id: str) -> Survey | SurveyAnswers | 
                     len(answer_set),
                 )
                 return None
-
-        new_answer_sets = [[] for _ in answer_sets]
-        for question_idx in range(num_questions):
-            all_question_answers = [
-                answer_set[question_idx] for answer_set in answer_sets
-            ]
-            random.shuffle(all_question_answers)
-            for answer_set_idx, new_answer_set in enumerate(new_answer_sets):
-                new_answer_set.append(all_question_answers[answer_set_idx])
-
+            
+        new_answer_sets = shuffle_answers(answer_sets, num_questions)
         return SurveyAnswers(**survey_data, encrypted_answers_sets=new_answer_sets)
     return survey
-
+    
 
 @app.post("/survey", status_code=201)
 def create_survey(survey: Survey, r: Annotated[redis.Redis, Depends(get_redis)]):

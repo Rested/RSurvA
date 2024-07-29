@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 import time
 from fastapi.testclient import TestClient
 
-from app import app, get_redis, Survey, Question, EncryptedAnswers
+from app import app, get_redis, Survey, Question, EncryptedAnswers, shuffle_answers, retrieve_survey
 
 redis = MagicMock()
 app.dependency_overrides[get_redis] = lambda: redis
@@ -74,3 +74,46 @@ def test_get_survey_with_answers():
     data = response.json()
     assert "encrypted_answers_sets" in data
     assert len(data["encrypted_answers_sets"]) == 1  # Ex
+
+def test_shuffle_answers():
+    # Test data
+    answer_sets = [
+        ["ans1_q1", "ans1_q2"],
+        ["ans2_q1", "ans2_q2"],
+        ["ans3_q1", "ans3_q2"]
+    ]
+    num_questions = 2
+
+    shuffled_sets = shuffle_answers(answer_sets, num_questions)
+    
+    # Ensure the shuffled sets have the same length
+    assert len(shuffled_sets) == len(answer_sets)
+    
+    for idx in range(num_questions):
+        original_answers = [answer_set[idx] for answer_set in answer_sets]
+        shuffled_answers = [shuffled_set[idx] for shuffled_set in shuffled_sets]
+        
+        # Ensure each question's answers remain the same
+        assert set(original_answers) == set(shuffled_answers)
+
+    # Ensure no answers are lost or duplicated
+    all_original = sorted([answer for answer_set in answer_sets for answer in answer_set])
+    all_shuffled = sorted([answer for answer_set in shuffled_sets for answer in answer_set])
+    assert all_original == all_shuffled
+
+    # Additional randomness check 
+    # Run the shuffling multiple times and check that at least once the order changes
+    different_order_found = False
+    for _ in range(100):
+        new_shuffled_sets = shuffle_answers(answer_sets, num_questions)
+        for idx in range(num_questions):
+            original_answers = [answer_set[idx] for answer_set in answer_sets]
+            reshuffled_answers = [reshuffled_set[idx] for reshuffled_set in new_shuffled_sets]
+            if original_answers != reshuffled_answers:
+                different_order_found = True
+                break
+        if different_order_found:
+            break
+
+    assert different_order_found, "The shuffle did not produce a different order in 100 attempts."
+
