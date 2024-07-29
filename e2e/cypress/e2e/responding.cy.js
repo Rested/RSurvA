@@ -33,6 +33,14 @@ describe('Responding', () => {
         });
     });
 
+    it("should show a prompt in a model when a user clicks the anonymize button", () => {
+        cy.get("input").eq(0).type("green");
+        cy.get("button").contains("Anonymize").click();
+        cy.contains("Prompt").should("exist");
+        cy.get('button:contains(Copy)').eq(1).realClick();
+        cy.contains('Prompt copied to clipboard!').should('exist');
+    });
+
     it('it should display the survey name and questions', () => {
         cy.contains(surveyName).should('exist');
         cy.contains(Q1).should('exist');
@@ -73,9 +81,11 @@ describe('Responding', () => {
     });
 
     it("should show the public key",  () => {
-        cy.get("input[readonly]").invoke('val').then((inputValue) => {
+        cy.get("input[readonly]").last().invoke('val').then((inputValue) => {
             expect(inputValue).to.equal(publicKey);
         });
 
     });
+
+    
 });  

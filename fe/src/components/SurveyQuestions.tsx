@@ -84,10 +84,10 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                             and the survey has received at least <strong class="font-semibold">{surveyQuestions.min_responses}</strong> responses.
                         </p>
                         <p class="mt-2">
-                            You should only answer surveys which you know have been shared with others as the owner could (if they were evil) add fake responses so that the threshold of <strong class="font-semibold">{surveyQuestions.min_responses}</strong> responses was exceeded.
+                            You should only answer if the survey was posted in a channel with at least {surveyQuestions.min_responses} participants who are likely to have seen the same link you clicked on by the time that you answer.
                         </p>
                         <p class="mt-2">
-                            The duration limit could only be manipulated if they controlled the server (and were evil). You can audit the server code on <a href="https://github.com/rested/rsurva">github</a>.
+                            You can read more about anonymity and how RSurvA works on the <a class="link" target="_blank" href={`${import.meta.env.BASE_URL}how-it-works`} rel="noreferrer">how it works page</a>.
                         </p>
                         <p class="mt-2">
                             The public key your answers are encrypted with is:

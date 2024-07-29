@@ -51,7 +51,7 @@ describe('Viewing responses', () => {
 
             cy.get("input").eq(0).type("blue");
             cy.get("textarea").first().type("A different story");
-            cy.get("input").eq(10).click();
+            cy.get('input[type="radio"]').eq(9).click();
             cy.contains("Submit Answers").click()
             cy.contains("Thank you")
     
@@ -60,7 +60,7 @@ describe('Viewing responses', () => {
 
             cy.get("input").eq(0).type("pink");
             cy.get("textarea").first().type("Another story");
-            cy.get("input").eq(10).click();
+            cy.get('input[type="radio"]').eq(9).click();
             cy.contains("Submit Answers").click()
             cy.contains("Thank you")
     

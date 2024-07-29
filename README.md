@@ -1,14 +1,15 @@
 # RSurvA - Secure, Anonymous Surveys
 
 ## Introduction
-RSurvA is a tool to create anonymous surveys with end-to-end encryption. This project ensures that survey responses remain anonymous by restricting access to them on the surver, and private by encrypting them with a public key only the survey owner has access to. RSurvA (R-Surv-A) is a reference to the RSA cryptosystem being used.
+RSurvA is a tool to create anonymous surveys.
 
 ## Key Benefits
-1. **Client-Side Encryption:** Answers are encrypted with a public key on the client side before transmission, ensuring end-to-end privacy.
-2. **Conditional Access:** Survey responses are accessible only after the survey duration has ended and the minimum response threshold is met, helping to achieve participant anonymity.
-3. **Private Key Decryption:** Encrypted answers can only be unlocked by the survey owner after the survey has completed using a private key only they have access to.
+1. **Client-Side Encryption:** Answers are encrypted with a public key on the client side before transmission, meaning they are stored encrypted on the server, keeping answers private.
+2. **Conditional Access:** Survey responses are accessible only after the survey duration has ended and the minimum response threshold is met, enabling participant anonymity. 
+3. **Private Key Decryption:** Encrypted answers can only be unlocked by the survey owner after the survey duration has completed using a private key only they have access to.
+4. **Open Source:** This project is open-source, which means it is auditable and can be self-hosted.
 
-To learn more about how this works in detail, please refer to our [How it Works](https://rested.github.io/RSurvA/how-it-works) page.
+To learn more about how RSurvA works in detail, please refer to the [How it Works](https://rsurva.pages.dev/how-it-works) page, especially the [limitations and mitigations section](https://rsurva.pages.dev/how-it-works#limits-and-mitigations) and the [sequence diagram](https://rsurva.pages.dev/how-it-works#sequence-diagram).
 
 ## Project Structure
 Here is an overview of the project structure:
@@ -17,8 +18,9 @@ RSurvA/
 ├── be/                     # Backend source code (fastapi, redis, flyio, upstash)
 ├── fe/                     # Frontend source code (vite, preact, ts, tailwindcss, daisyui, gh-pages)
 ├── e2e/                    # End-to-end tests (cypress)
-├── .github/                # GitHub actions (lint, test, e2e, deploy (fly and pages), post-deploy e2e)
-└── docker-compose.yaml     # Docker Compose (be, fe, redis)
+├── .github/                # GitHub actions (lint, test, e2e, deploy (fly and cloudflare pages), post-deploy e2e)
+├── docker-compose.yaml     # Docker Compose (be, fe, redis)
+└── README.md               # You are here 
 ```
 
 ## Getting Started
@@ -47,8 +49,6 @@ Yes please!
 ## License
 This project is licensed under the [MIT License](LICENSE.txt).
 
-For more technical details and step-by-step sequences, please visit our [How it Works](https://github.com/RSurvA/how-it-works) page.
+## Anything Else
 
----
-
-If you have any questions or need further assistance, feel free to open an issue.
+If you have any questions or want a feature feel free to open an issue.
