@@ -295,7 +295,7 @@ const HowItWorks = () => {
                 <p class="text-base-content">
                     You can check the <a href="https://github.com/rested/RSurvA" class="text-primary" target="_blank" rel="noopener noreferrer">code</a> being used and the actions used to deploy it or deploy it to your own infra.
                 </p>
-                <div class="mermaid">
+                <div class="mermaid bg-white  p-6 rounded-lg shadow-md mt-4">
                     {infrastructureDiagram}
                 </div>
             </div>

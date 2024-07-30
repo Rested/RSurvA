@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 import time
 from fastapi.testclient import TestClient
 
-from app import app, get_redis, Survey, Question, EncryptedAnswers, shuffle_answers, retrieve_survey
+from app import app, get_redis, Survey, Question, EncryptedAnswers, shuffle_answers
 
 redis = MagicMock()
 app.dependency_overrides[get_redis] = lambda: redis
