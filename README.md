@@ -1,7 +1,10 @@
-# RSurvA - Secure, Anonymous Surveys
+# RSurvA - Really Super Anonymous Surveys
 
 ## Introduction
-RSurvA is a tool to create anonymous surveys.
+
+Surveys which claim to be anonymous often are not.
+
+RSurvA tries to do anonymous surveys better.
 
 ## Key Benefits
 1. **Client-Side Encryption:** Answers are encrypted with a public key on the client side before transmission, meaning they are stored encrypted on the server, keeping answers private.
@@ -9,7 +12,20 @@ RSurvA is a tool to create anonymous surveys.
 3. **Private Key Decryption:** Encrypted answers can only be unlocked by the survey owner after the survey duration has completed using a private key only they have access to.
 4. **Open Source:** This project is open-source, which means it is auditable and can be self-hosted.
 
-To learn more about how RSurvA works in detail, please refer to the [How it Works](https://rsurva.pages.dev/how-it-works) page, especially the [limitations and mitigations section](https://rsurva.pages.dev/how-it-works#limits-and-mitigations) and the [sequence diagram](https://rsurva.pages.dev/how-it-works#sequence-diagram).
+## Motivation
+
+Surveys which claim to be anonymous often are not.
+
+- They often require login, meaning the server knows exactly who provided which answer.
+- They may well store answers unencrypted, making them viewable by any entity with access to the server.
+- They often allow survey owners to see responses as they come in, making correlating them to when respondents saw the survey link possible.
+- They also offer no stylometry counter-measures (to stop the survey owner from identifying respondents using stylometry).
+- Finally, they often do nothing to randomize responses, making it easier to identify respondents by viewing all their answers at once and applying stylometry or other information on this broader dataset.
+
+<b>RSurvA attempts to address all of these issues by providing a simple low trust approach.</b>
+See the [How it Works](https://rsurva.pages.dev/how-it-works) page, especially [Limitations & Mitigations](https://rsurva.pages.dev/how-it-works#limits-and-mitigations) section for details on how!
+
+
 
 ## Project Structure
 Here is an overview of the project structure:
@@ -44,7 +60,7 @@ RSurvA/
 You can also run the frontend with `npm dev` or the backend with `uvicorn app:app --reload`.
 
 ## Contributing
-Yes please! 
+Yes please! Feel free to add issues or open PRs. 
 
 ## License
 This project is licensed under the [MIT License](LICENSE.txt).

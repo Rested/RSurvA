@@ -1,14 +1,16 @@
+function base64ToArrayBuffer(base64) {
+    const binaryString = window.atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
+
+
 export async function encryptStringWithPublicKey(publicKeyB64, stringToEncrypt) {
     // Convert base64 public key to ArrayBuffer
-    function base64ToArrayBuffer(base64) {
-        const binaryString = window.atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-    }
 
     // Import the public key
     async function importPublicKey(base64PublicKey) {
@@ -55,15 +57,6 @@ export async function encryptStringWithPublicKey(publicKeyB64, stringToEncrypt) 
 }
 
 export async function decryptStringWithPrivateKey(privateKeyB64, stringToDecrypt) {
-    function base64ToArrayBuffer(base64) {
-        const binaryString = window.atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-    }
 
     async function importPrivateKey(base64PrivateKey) {
         const privateKeyBuffer = base64ToArrayBuffer(base64PrivateKey);
