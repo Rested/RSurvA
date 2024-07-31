@@ -4,6 +4,9 @@ Surveys which claim to be anonymous often do very little to ensure that they act
 
 RSurvA tries to do anonymous surveys better.
 
+## 🚀 **[Discover how RSurvA works and start creating really super anonymous surveys now!](https://rsurva.pages.dev/)**
+
+
 ## Key Benefits
 1. **Client-Side Encryption:** Answers are encrypted with a public key on the client side before transmission, meaning they are stored encrypted on the server, keeping answers private.
 2. **Conditional Access:** Survey responses are accessible only after the survey duration has ended and the minimum response threshold is met, enabling participant anonymity. 
