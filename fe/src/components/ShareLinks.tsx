@@ -76,7 +76,7 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                 </button>
             </div>
             <p class="text-base-content mb-4"><b>Keep this safe as you will need it to view the responses</b> after <b>{duration}</b> and at least <b>{minResponses} responses</b> are collected.</p>
-            <Divider text="Share Link" />
+            <Divider text="Share Link" id="share-link" />
             <p class="text-base-content mb-4">Share this link with those you want to complete the survey:</p>
             <div class="mb-4 flex items-center">
                 <input
@@ -117,11 +117,12 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                     <DownloadIcon class="mr-2" /> Download
                 </button>
             </div>
+            <Divider text="Alternatively" />
             <button
                 onClick={() => {
                     window.location.reload();
                 }}
-                class="w-full px-4 py-2 btn btn-success text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transform hover:scale-105 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-offset-2"
+                class="w-full mt-4 px-4 py-2 btn btn-md btn-accent"
             >
                 Create a new survey
             </button>

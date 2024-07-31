@@ -10,7 +10,7 @@ const QuestionButtons = ({ onAddQuestion }) => {
                     <button
                         key={type}
                         onClick={() => onAddQuestion(type)}
-                        className="btn btn-primary flex items-center justify-center px-6 py-3 text-white font-semibold rounded-xl shadow-lg hover:bg-indigo-700 transform hover:scale-105 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-2"
+                        className="btn btn-primary text-primary-content"
                     >
                         {createElement(iconMapping[type], { className: "h-6 w-6 mr-3" })}
                         {type}
