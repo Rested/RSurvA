@@ -1,10 +1,11 @@
 # RSurvA - Really Super Anonymous Surveys
 
-## Introduction
-
-Surveys which claim to be anonymous often are not.
+Surveys which claim to be anonymous often do very little to ensure that they actually are.
 
 RSurvA tries to do anonymous surveys better.
+
+## 🚀 **[Discover how RSurvA works and start creating really super anonymous surveys now!](https://rsurva.pages.dev/)**
+
 
 ## Key Benefits
 1. **Client-Side Encryption:** Answers are encrypted with a public key on the client side before transmission, meaning they are stored encrypted on the server, keeping answers private.
@@ -23,7 +24,7 @@ Surveys which claim to be anonymous often are not.
 - Finally, they often do nothing to randomize responses, making it easier to identify respondents by viewing all their answers at once and applying stylometry or other information on this broader dataset.
 
 <b>RSurvA attempts to address all of these issues by providing a simple low trust approach.</b>
-See the [How it Works](https://rsurva.pages.dev/how-it-works) page, especially [Limitations & Mitigations](https://rsurva.pages.dev/how-it-works#limits-and-mitigations) section for details on how!
+See the [How it Works](https://rsurva.pages.dev/how-it-works) page, especially the [Limitations & Mitigations](https://rsurva.pages.dev/how-it-works#limitations-and-mitigations) section for details on how!
 
 
 
