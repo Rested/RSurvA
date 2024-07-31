@@ -1,8 +1,6 @@
 # RSurvA - Really Super Anonymous Surveys
 
-## Introduction
-
-Surveys which claim to be anonymous often are not.
+Surveys which claim to be anonymous often do very little to ensure that they actually are.
 
 RSurvA tries to do anonymous surveys better.
 
