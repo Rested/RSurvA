@@ -1,11 +1,6 @@
 import { useEffect } from 'preact/hooks';
-import { Divider } from '../components/Divider';
 import mermaid from 'mermaid';
 import TitleBar from '../components/TitleBar';
-import { KeyIcon, LockClosedIcon, ShieldCheckIcon, CodeBracketIcon } from '@heroicons/react/24/solid';
-import { adversarialStylometryPrompt } from '../prompts';
-import { sequenceDiagram, infrastructureDiagram } from '../graphs';
-import Contents from '../components/how_it_works/Contents';
 import KeyBenefits from '../components/how_it_works/KeyBenefits';
 import Motivations from '../components/how_it_works/Motivations';
 import HowToCreate from '../components/how_it_works/HowToCreate';

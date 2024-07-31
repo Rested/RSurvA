@@ -1,9 +1,9 @@
+import { ReactNode } from "preact/compat";
 
-import * as Icons from '@heroicons/react/24/solid'; // or '@heroicons/react/solid'
 
 interface CollapseProps {
     title: string;
-    children: React.ReactNode;
+    children: ReactNode;
     emoji?: string;
     contentBgColor?: string;
 
