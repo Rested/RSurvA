@@ -14,7 +14,7 @@ const Motivations = () => (
             </ul>
             <p className="text-base-content mt-4">
                 RSurvA attempts to address all of these issues by providing a simple low trust approach.
-                See the <a href="#limits-and-mitigations" className="text-primary hover:underline">Limitations & Mitigations</a> section for details on how.
+                See the <a href="#limitations-and-mitigations" className="text-primary hover:underline">Limitations & Mitigations</a> section for details on how.
             </p>
         </Collapse>
     </>
