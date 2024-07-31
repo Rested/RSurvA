@@ -91,7 +91,7 @@ const Survey = ({ surveyId }) => {
     return (
         submitted ? 
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
-            <h1 class="text-lg font-medium text-base-content mb-4">Thank you for your response!</h1>
+            <h1 class="text-lg font-medium text-base-content mb-4">Thank you for your response! 🙏</h1>
         </div> 
         : 
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">

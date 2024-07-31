@@ -24,7 +24,7 @@ export const Anonymize = ({ question, answer }) => {
     return (
         <div>
             <button
-                className="btn btn-accent mt-2 btn-sm"
+                className="btn btn-primary mt-2 btn-sm"
                 onClick={handleToggleModal}
                 disabled={!answer}
             >

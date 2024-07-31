@@ -100,7 +100,7 @@ const Questions = () => {
     ) : (
         <div class="p-6 mt-8 max-w-4xl mx-auto bg-base-200 shadow-lg rounded-lg">
             <TitleBar text="Create Survey" />
-            <Divider text="Create" />
+            <Divider text="Create" id="create" />
             <div className="mb-6">
                 <label htmlFor="survey-name" className="block text-md font-medium text-base-content mb-2">
                     Survey Name
@@ -127,14 +127,14 @@ const Questions = () => {
                     {validationError}
                 </div>
             )}
-            <Divider text="Preview" />
+            <Divider text="Preview" id="preview" />
             <div className="mb-4">
                 <h2 className="text-xl font-bold text-base-content mb-4">
                     {surveyName}
                 </h2>
                 <SurveyPreview questions={questions} />
             </div>
-            <Divider text="Share" />
+            <Divider text="Share" id="share" />
             <div className="mb-4">
                 <label htmlFor="survey-duration" className="label text-base-content mb-2">
                     Duration
@@ -180,7 +180,7 @@ const Questions = () => {
             </div>
             <button
                 onClick={handleShareSurvey}
-                className="w-full px-4 py-2 btn btn-primary text-white font-semibold rounded-xl shadow-lg hover:bg-indigo-700 transform hover:scale-105 transition-transform duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-2"
+                className="w-full px-4 py-2 btn btn-accent btn-primary-content"
             >
                 Share Survey
             </button>
