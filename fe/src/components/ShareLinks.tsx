@@ -37,7 +37,7 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
     };
     const handleDownload = (filename: string, text: string) => {
         try {
-            let element = document.createElement('a');
+            const element = document.createElement('a');
             element.setAttribute('href', `data:text/plain;charset=utf-8,${  encodeURIComponent(text)}`);
             element.setAttribute('download', filename);
           
@@ -108,16 +108,16 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
                     onClick={() => handleCopyToClipboard(publicKey, "Public key copied to clipboard!")}
                     class="px-4 py-2 btn btn-primary rounded-r-lg flex items-center mr-2"
                 >
-                    <ClipboardCopyIcon class="mr-2" /> Copy
+                    <ClipboardCopyIcon /> Copy
                 </button>
                 <button
                     onClick={() => handleDownload(`${surveyName}-public-key.txt`, privateKey)}
                     class="px-4 py-2 btn btn-secondary rounded-lg flex items-center"
                 >
-                    <DownloadIcon class="mr-2" /> Download
+                    <DownloadIcon /> Download
                 </button>
             </div>
-            <Divider text="Alternatively" />
+            <Divider text="Alternatively" id="alternatively" />
             <button
                 onClick={() => {
                     window.location.reload();

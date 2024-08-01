@@ -13,7 +13,7 @@ const SurveyExpired = ({ surveyQuestions, handleUnlockSurvey, setPrivateKey, pri
                         type="text"
                         placeholder="Enter your private key"
                         value={privateKey}
-                        onChange={(e) => setPrivateKey(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrivateKey((e.target as HTMLInputElement).value)} 
                         class="w-full px-4 py-2 mb-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base-content"
                     />
                     <button

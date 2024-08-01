@@ -33,6 +33,10 @@ const Questions = () => {
         setQuestions(questions.concat([{ text: "", question_type: questionType }]));
     };
 
+    const handleQuestionDelete = (index: number) => {
+        setQuestions(questions.filter((_, i) => i !== index));
+    };
+    
     const handleSurveyNameChange = (event) => {
         setSurveyName(event.target.value);
     };
@@ -119,6 +123,7 @@ const Questions = () => {
                     index={index}
                     onQuestionChange={handleQuestionChange}
                     question={question}
+                    onDeleteQuestion={handleQuestionDelete}
                 />
             ))}
             <QuestionButtons onAddQuestion={handleQuestionAdd} />
@@ -142,7 +147,7 @@ const Questions = () => {
                 <select
                     id="survey-duration"
                     value={surveyDuration}
-                    onChange={(e) => setSurveyDuration(parseInt(e.target.value, 10))}
+                    onChange={(e) => setSurveyDuration(parseInt((e.target as HTMLInputElement).value, 10))}
                     className="block w-full px-4 py-2 select select-bordered"
                 >
                     {Object.entries(durations).map(([value, label]) => {
@@ -162,7 +167,7 @@ const Questions = () => {
                     id="survey-min-responses"
                     type="number"
                     value={surveyMinResponses}
-                    onChange={(e) => setSurveyMinResponses(parseInt(e.target.value, 10))}
+                    onChange={(e) => setSurveyMinResponses(parseInt((e.target as HTMLInputElement).value, 10))}
                     className="block w-full px-4 py-2 input input-bordered"
                 />
             </div>

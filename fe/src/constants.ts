@@ -13,11 +13,11 @@ export const durations: { [key: number]: string } = {
 };
 
 export enum QuestionType {
-    // eslint-disable-next-line no-unused-vars
+     
     ShortText = 'Short Text',
-    // eslint-disable-next-line no-unused-vars
+     
     LongText = 'Long Text',
-    // eslint-disable-next-line no-unused-vars
+     
     Rating = 'Rating',
 }
 
