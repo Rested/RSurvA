@@ -73,9 +73,9 @@ export async function decryptStringWithPrivateKey(privateKeyPem: string, seriali
 
     if (success) {
         return decipher.output.getBytes();
-    } else {
+    } 
         throw new Error('Decryption failed');
-    }
+    
 }
 
 
