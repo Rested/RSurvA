@@ -13,7 +13,7 @@ const Rating = ({ index, value, onChange }) => {
                         checked={parsedValue === i + 1}
                         onChange={(e) => {
                             if (e.target !== undefined) {
-                                onChange(index, parseInt(e.target.value, 10));
+                                onChange(index, parseInt((e.target as HTMLInputElement).value, 10));
                             }
                         }}
                         className="radio radio-primary mb-1"

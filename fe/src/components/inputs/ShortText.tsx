@@ -5,7 +5,7 @@ const ShortText = ({ index, onChange, value }) => {
         <input
             type="text"
             value={value}
-            onChange={(e) => onChange(index, e.target.value)}
+            onChange={(e) => onChange(index, (e.target as HTMLInputElement).value)}
             className="input input-bordered input-primary w-full"
         />
     );
