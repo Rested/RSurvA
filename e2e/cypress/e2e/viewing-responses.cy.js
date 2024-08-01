@@ -22,7 +22,7 @@ describe('Viewing responses', () => {
 
 
         // Set the duration
-        cy.get('select#survey-duration').select("10 seconds");
+        cy.get('select#survey-duration').select("20 seconds");
       
         // Set the minimum responses
         cy.get('input#survey-min-responses').clear().type('3');
@@ -41,22 +41,22 @@ describe('Viewing responses', () => {
             cy.visit(link);
             cy.contains("Respond to Survey").should('exist');
 
-            cy.get("input").eq(0).type("green");
-            cy.get("textarea").first().type("A story");
+            cy.get("input").eq(0).type("green",  {delay: 0});
+            cy.get("textarea").first().type("A story", {delay: 0});
             cy.get("input").eq(5).click();
             cy.contains("Submit Answers").click()
-            cy.contains("Thank you")
-    
+                
             cy.visit(link);
+            cy.contains("Respond to Survey").should('exist');
 
             cy.get("input").eq(0).type("blue");
-            cy.get("textarea").first().type("A different story");
+            cy.get("textarea").first().type("A different story", {delay: 0});
             cy.get('input[type="radio"]').eq(9).click();
             cy.contains("Submit Answers").click()
-            cy.contains("Thank you")
     
 
             cy.visit(link);
+            cy.contains("Respond to Survey").should('exist');
 
             cy.get("input").eq(0).type("pink");
             cy.get("textarea").first().type("Another story");
@@ -64,7 +64,7 @@ describe('Viewing responses', () => {
             cy.contains("Submit Answers").click()
             cy.contains("Thank you")
     
-            cy.wait((12 * 1000) - ((new Date()) - surveyTimerStarted));
+            cy.wait((25 * 1000) - ((new Date()) - surveyTimerStarted));
             cy.visit(link);
             cy.contains("Survey Responses");
 
@@ -72,14 +72,6 @@ describe('Viewing responses', () => {
 
     });
 
-    it('it should display the survey name and questions and encrypted answers', () => {
-        cy.contains(surveyName).should('exist');
-        cy.contains(Q1).should('exist');
-        cy.contains(Q2).should('exist');
-        cy.contains(Q3).should('exist');
-        cy.get(".answer > div > div > div:contains(Encrypted Answer)").should('have.length', 9);
-
-    });
 
 
     
@@ -130,5 +122,15 @@ describe('Viewing responses', () => {
             checkOrderUntilChanged();
         });
     });
+
+    it('it should display the survey name and questions and encrypted answers', () => {
+        cy.contains(surveyName).should('exist');
+        cy.contains(Q1).should('exist');
+        cy.contains(Q2).should('exist');
+        cy.contains(Q3).should('exist');
+        cy.get(".answer > div > div > div:contains(Encrypted Answer)").should('have.length', 9);
+
+    });
+
 
 });

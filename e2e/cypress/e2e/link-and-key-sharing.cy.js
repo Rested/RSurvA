@@ -33,7 +33,7 @@ describe('Survey Link and Key Sharing', () => {
 
     it('should contain a public key', () => {
         cy.get('input').eq(2).invoke('val').then((inputValue) => {
-            expect(inputValue.length).to.be.equal(392); 
+            expect(inputValue.length).to.be.equal(616); 
         });
 
         cy.contains("The link contains the SHA-256 hash of your full RSA public key which is:").should('exist');

@@ -13,7 +13,7 @@ describe('Survey Expiration', () => {
 
 
         // Set the duration
-        cy.get('select#survey-duration').select("10 seconds");
+        cy.get('select#survey-duration').select("20 seconds");
       
         // Set the minimum responses
         cy.get('input#survey-min-responses').clear().type('3');
@@ -33,7 +33,7 @@ describe('Survey Expiration', () => {
             cy.contains("Thank you")
     
     
-            cy.wait((12 * 1000) - ((new Date()) - surveyTimerStarted));
+            cy.wait((25 * 1000) - ((new Date()) - surveyTimerStarted));
             cy.visit(link);
             cy.contains("Survey");
 

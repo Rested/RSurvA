@@ -48,7 +48,7 @@ describe('Survey Creation', () => {
     cy.get('input#question-entry-0').type('What is your favorite color?');
 
     // Set the duration
-    cy.get('select#survey-duration').select('10 seconds'); // Assuming '60' is equivalent to 60 minutes
+    cy.get('select#survey-duration').select('20 seconds'); // Assuming '60' is equivalent to 60 minutes
 
     // Set the minimum responses
     cy.get('input#survey-min-responses').clear().type('5');
