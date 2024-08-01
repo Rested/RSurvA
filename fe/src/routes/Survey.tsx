@@ -43,7 +43,7 @@ const Survey = ({ surveyId }) => {
     const submitAnswers = async () => {
         const encryptedAnswersPromises = surveyQuestionAnswers.map(async (answer) => {
             // Assuming surveyQuestionAnswers is an array of answers
-            return encryptStringWithPublicKey(surveyQuestions.public_key, answer);
+            return encryptStringWithPublicKey(surveyQuestions.public_key, JSON.stringify(answer));
         });
     
         // Wait for all the encryption promises to resolve
