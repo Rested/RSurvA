@@ -4,6 +4,19 @@ describe('Survey Creation', () => {
     cy.visit('/');
   });
 
+  it('should allow deleting questions', ()=> {
+    cy.contains('button', 'Short Text').click();
+    cy.contains('button', 'Long Text').click();
+    cy.contains('button', 'Rating').click();
+    cy.get('.question-entry ').should('have.length', 3);
+    cy.contains('button', 'Delete').click();
+    cy.get('.question-entry ').should('have.length', 2);
+    cy.contains('button', 'Delete').click();
+    cy.get('.question-entry ').should('have.length', 1);
+    cy.contains('button', 'Delete').click();
+    cy.get('.question-entry ').should('have.length', 0);
+  })
+
   it('should load the Home page and render the create survey form', () => {
     // Check for the presence of the form title
     cy.contains('Create Survey').should('be.visible');

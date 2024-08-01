@@ -33,6 +33,10 @@ const Questions = () => {
         setQuestions(questions.concat([{ text: "", question_type: questionType }]));
     };
 
+    const handleQuestionDelete = (index: number) => {
+        setQuestions(questions.filter((_, i) => i !== index));
+    };
+    
     const handleSurveyNameChange = (event) => {
         setSurveyName(event.target.value);
     };
@@ -119,6 +123,7 @@ const Questions = () => {
                     index={index}
                     onQuestionChange={handleQuestionChange}
                     question={question}
+                    onDeleteQuestion={handleQuestionDelete}
                 />
             ))}
             <QuestionButtons onAddQuestion={handleQuestionAdd} />

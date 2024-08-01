@@ -37,7 +37,7 @@ const ShareLinks = ({ surveyName, link, privateKey, duration, minResponses, publ
     };
     const handleDownload = (filename: string, text: string) => {
         try {
-            let element = document.createElement('a');
+            const element = document.createElement('a');
             element.setAttribute('href', `data:text/plain;charset=utf-8,${  encodeURIComponent(text)}`);
             element.setAttribute('download', filename);
           
