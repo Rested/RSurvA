@@ -68,6 +68,9 @@ describe('Survey Creation', () => {
 
     // Attempt to share the survey
     cy.contains('button', 'Share Survey').click();
+    
+    // shows the loading indicator
+    cy.contains('Storing').should('be.visible');
 
     // Assuming we should navigate to a share link page or get a confirmation message
     // Adjust the selector and text based on actual implementation

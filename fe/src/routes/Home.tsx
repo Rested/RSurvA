@@ -24,6 +24,7 @@ const Questions = () => {
     const [surveyMinResponses, setSurveyMinResponses] = useState<number>(5);
     const [shareLinks, setShareLinks] = useState<{ link: string; privateKey: string, publicKey: string } | null>(null);
     const [validationError, setValidationError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleQuestionChange = (index: number, text: string) => {
         setQuestions(questions.map((question, i) => (index === i ? { ...question, text } : question)));
@@ -36,7 +37,7 @@ const Questions = () => {
     const handleQuestionDelete = (index: number) => {
         setQuestions(questions.filter((_, i) => i !== index));
     };
-    
+
     const handleSurveyNameChange = (event) => {
         setSurveyName(event.target.value);
     };
@@ -69,6 +70,7 @@ const Questions = () => {
         if (!validateSurvey()) {
             return;
         }
+        setLoading(true);
 
         const { surveyId, privateKeyB64, publicKeyB64 } = await generateRSA();
         fetch(`${apiUrl}/survey`, {
@@ -91,6 +93,8 @@ const Questions = () => {
                         publicKey: publicKeyB64
                     });
                 }
+            }).finally(() => {
+                setLoading(false);
             });
     };
 
@@ -186,8 +190,16 @@ const Questions = () => {
             <button
                 onClick={handleShareSurvey}
                 className="w-full px-4 py-2 btn btn-accent btn-primary-content"
+                disabled={loading}
             >
-                Share Survey
+                {loading ? (
+                    <div className="flex justify-center items-center">
+                        <span className="loading loading-spinner loading-md" />
+                        <span className="ml-2">Storing Survey...</span>
+                    </div>
+                ) : (
+                    'Share Survey'
+                )}
             </button>
         </div>
     );

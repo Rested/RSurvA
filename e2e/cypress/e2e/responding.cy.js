@@ -53,7 +53,10 @@ describe('Responding', () => {
         cy.get("textarea").first().type("A story");
         cy.get("input").eq(5).click();
 
-        cy.contains("Submit Answers").click()
+        cy.contains("Submit Answers").click();
+        // shows the loading indicator
+        cy.contains('Submitting').should('be.visible');
+
         cy.contains("Thank you")
     });
 

@@ -8,6 +8,9 @@ import { useState } from "preact/hooks";
 
 const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecryptedAnswers, handleAnswerChange, submitAnswers }) => {
     const [validationError, setValidationError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    
 
     const validateAnswers = () => {
         for (const answer of surveyQuestionAnswers) {
@@ -23,7 +26,9 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
 
     const handleSubmit = () => {
         if (validateAnswers()) {
+            setLoading(false);
             submitAnswers();
+            setLoading(true);
         }
     };
 
@@ -105,8 +110,16 @@ const SurveyQuestions = ({ surveyQuestions, surveyQuestionAnswers, surveyDecrypt
                     <button
                         onClick={handleSubmit}
                         class="w-full mt-4 px-4 py-2 btn btn-accent"
+                        disabled={loading}
                     >
-                        Submit Answers
+                        {loading ? (
+                            <div className="flex justify-center items-center">
+                                <span className="loading loading-spinner loading-md" />
+                                <span className="ml-2">Submitting Encrypted Answers...</span>
+                            </div>
+                        ) : (
+                            'Submit Answers'
+                        )}
                     </button>
                 </Fragment>
             )}
