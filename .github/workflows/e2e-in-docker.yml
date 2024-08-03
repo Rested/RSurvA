@@ -21,8 +21,8 @@ jobs:
       with:
         node-version: '18' # 
 
-    - name: Run docker-compose up
-      run: docker-compose up -d
+    - name: Run docker compose up
+      run: docker compose up -d
 
     - name: Install dependencies
       working-directory: e2e

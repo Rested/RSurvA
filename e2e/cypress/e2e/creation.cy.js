@@ -53,6 +53,11 @@ describe('Survey Creation', () => {
   });
 
   it('should properly create and share a survey', () => {
+    cy.intercept('POST', '*', (req) => {
+      req.on('response', (res) => {
+        res.setDelay(1000); // ensure that we wait long enough to see loading
+      });
+    }).as('shareSurvey');
     // Enter a survey name
     cy.get('input#survey-name').type('My Test Survey');
 
@@ -68,6 +73,10 @@ describe('Survey Creation', () => {
 
     // Attempt to share the survey
     cy.contains('button', 'Share Survey').click();
+    
+    // shows the loading indicator
+    cy.contains('Storing').should('be.visible');
+    cy.wait('@shareSurvey');
 
     // Assuming we should navigate to a share link page or get a confirmation message
     // Adjust the selector and text based on actual implementation

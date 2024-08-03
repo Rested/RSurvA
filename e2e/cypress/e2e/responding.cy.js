@@ -31,6 +31,8 @@ describe('Responding', () => {
             cy.visit(link);
             cy.contains("Respond to Survey").should('exist');
         });
+
+      
     });
 
     it("should show a prompt in a model when a user clicks the anonymize button", () => {
@@ -49,11 +51,21 @@ describe('Responding', () => {
     });
 
     it("should thank for responses", () => {
+        cy.intercept('POST', '*', (req) => {
+            req.on('response', (res) => {
+              res.setDelay(1000); // ensure that we wait long enough to see loading
+            });
+          }).as('submitAnswers');
+
         cy.get("input").eq(0).type("green");
         cy.get("textarea").first().type("A story");
         cy.get("input").eq(5).click();
 
-        cy.contains("Submit Answers").click()
+        cy.contains("Submit Answers").click();
+        // shows the loading indicator
+        cy.contains('Submitting').should('be.visible');
+        cy.wait('@submitAnswers');
+
         cy.contains("Thank you")
     });
 
@@ -62,7 +74,8 @@ describe('Responding', () => {
         cy.get("textarea").first().invoke('val', "he was happy but he was cold but ".repeat(1000)).trigger('input').trigger('change');
         cy.get("input").eq(5).click();
 
-        cy.contains("Submit Answers").click()
+        cy.contains("Submit Answers").click();
+
         cy.contains("Thank you")
     });
 
